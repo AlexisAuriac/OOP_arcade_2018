@@ -1,0 +1,25 @@
+*.o
+*.gch
+*.a
+*.so
+*.gcda
+*.gcno
+*~
+\#*\#
+vgcore.*
+a.out
+
+# binaries
+arcade
+
+# sublime-text
+*.sublime-project
+*.sublime-workspace
+
+# visual studio code
+*.code-workspace
+
+# JetBrains
+.idea/
+CMakeLists.txt
+cmake-build-debug/

@@ -8,6 +8,7 @@
 #ifndef IGRAPHIC_LIB_HPP
 #define IGRAPHIC_LIB_HPP
 
+#include <iostream>
 #include <string>
 
 namespace arc::gl {
@@ -15,8 +16,8 @@ namespace arc::gl {
 
     class IGraphicLib {
         public:
-            virtual void openWindow();
-            virtual void closeWindow();
+            virtual void openWindow() = 0;
+            virtual void closeWindow() = 0;
     };
 }
 

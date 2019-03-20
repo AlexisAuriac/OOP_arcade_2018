@@ -52,7 +52,11 @@ namespace arc {
             entry = (gl::IGraphicLib *(*)()) dlsym(_lib, gl::ENTRY_POINT_NAME);
             if (entry == nullptr)
                 throw arc::err::DLError(dlerror());
-            return entry();
+            try {
+                return entry();
+            } catch (const std::bad_alloc &e) {
+                throw arc::err::DLError("Library creation failed");
+            }
         }
 
     private:

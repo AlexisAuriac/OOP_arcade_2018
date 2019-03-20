@@ -9,6 +9,7 @@
 #define ARCADE_HPP
 
 #include <iostream>
+#include "Error.hpp"
 
 namespace arc {
     static const int SUCCESS = 0;
@@ -20,6 +21,10 @@ namespace arc {
         ~Arcade() = default;
 
         int run(int ac, char **av);
+
+    private:
+        void handle_argument_errors(int ac, char **av);
     };
 }
+
 #endif

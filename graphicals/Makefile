@@ -5,8 +5,7 @@
 ## Makefile for grapical libs.
 ##
 
-LIBS	=	testLib		\
-			testLib2
+LIBS	=	SDL2
 
 all: libs
 

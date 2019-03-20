@@ -5,7 +5,8 @@
 ## Makefile for grapical libs.
 ##
 
-LIBS	=	SDL2
+LIBS	=	SDL2		\
+			ncurses
 
 all: libs
 
@@ -26,4 +27,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all libs clean fclean re

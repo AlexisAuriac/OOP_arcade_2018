@@ -24,7 +24,6 @@ namespace arc {
 
     private:
         void handleArgumentErrors(int ac, char **av);
-        void loadInitLib(const std::string &libName);
 
     private:
         DLLoader<gl::IGraphicLib> _glLoader;

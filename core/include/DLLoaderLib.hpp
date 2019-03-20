@@ -28,8 +28,8 @@ namespace arc {
             closeLib();
         }
 
-        void loadLib(const char *path) {
-            const void *newLib = dlopen(path, RTLD_LAZY);
+        void loadLib(const std::string &path) {
+            void *newLib = dlopen(path.c_str(), RTLD_LAZY);
 
             if (newLib == nullptr)
                 throw arc::err::DLError(dlerror());

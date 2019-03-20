@@ -39,7 +39,7 @@ namespace arc {
         }
 
         void closeLib() {
-            if (_lib != nullptr)
+            if (_lib == nullptr)
                 return;
             if (dlclose(_lib) != 0)
                 std::cerr << dlerror() << std::endl;

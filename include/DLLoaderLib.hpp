@@ -14,7 +14,7 @@
 #include "IGraphicLib.hpp"
 #include "Error.hpp"
 
-namespace arc::gl {
+namespace arc {
     template <class IGraphicLib>
     class DLLoader {
     public:
@@ -32,10 +32,10 @@ namespace arc::gl {
                 std::cerr << dlerror() << std::endl;
         }
 
-        IGraphicLib *getInstance() {
-            IGraphicLib *(*entry)(void);
+        gl::IGraphicLib *getInstance() {
+            gl::IGraphicLib *(*entry)(void);
 
-            entry = (IGraphicLib *(*)()) dlsym(_lib, ENTRY_POINT_NAME);
+            entry = (gl::IGraphicLib *(*)()) dlsym(_lib, gl::ENTRY_POINT_NAME);
             if (entry == nullptr)
                 throw arc::err::DLError(dlerror());
             return entry();

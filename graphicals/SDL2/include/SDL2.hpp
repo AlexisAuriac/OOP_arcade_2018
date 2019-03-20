@@ -13,8 +13,13 @@
 namespace arc::gl {
     class SDL2 : public IGraphicLib {
     public:
-        SDL2();
-        ~SDL2();
+        void openWindow() override {
+            std::cout << "SDL2: openWindow" << std::endl;
+        }
+
+        void closeWindow() override {
+            std::cout << "SDL2: closeWindow" << std::endl;
+        }
     };
 }
 

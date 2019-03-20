@@ -2,43 +2,35 @@
 ## EPITECH PROJECT, 2018
 ## arcade
 ## File description:
-## Makefile for arcade.
+## Makefile for arcade core, graphical libs and games.
 ##
 
-CXX			?=	g++
+all: core graphicals games
 
-SRC			=	main.cpp	\
-				Arcade.cpp	\
-				Error.cpp
+core:
+	make -C core
 
-SRC			:=	$(addprefix src/, $(SRC))
+games:
+	make -C games
 
-OBJ			=	$(SRC:.cpp=.o)
-
-CPPFLAGS	+=	-I include
-
-CXXFLAGS	+=	-Wall -Wextra
-
-LDFLAGS		=	-ldl
-
-NAME		=	arcade
-
-all:$(NAME)
-
-$(NAME): $(OBJ)
-	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
+graphicals:
+	make -C graphicals
 
 tests_run:
 	make -C tests
 
 clean:
-	$(RM) $(OBJ)
 	make clean -C tests
+	make clean -C core
+	make clean -C games
+	make clean -C graphicals
 
 fclean: clean
-	$(RM) $(NAME)
 	make fclean -C tests
+	make fclean -C core
+	make fclean -C games
+	make fclean -C graphicals
 
 re: fclean all
 
-.PHONY: all tests_run clean fclean re
+.PHONY: all core games graphicals tests_run clean fclean re

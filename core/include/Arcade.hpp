@@ -20,9 +20,6 @@ namespace arc {
 
     class Arcade {
     public:
-        Arcade() = default;
-        ~Arcade() = default;
-
         int run(int ac, char **av);
 
     private:
@@ -31,7 +28,7 @@ namespace arc {
 
     private:
         DLLoader<gl::IGraphicLib> _glLoader;
-        gl::IGraphicLib *_gl;
+        // gl::IGraphicLib *_gl;
         // DLLoader<game::Igame> _gameLoader;
         // game::IGame *_game;
     };

@@ -18,18 +18,31 @@ namespace arc {
     template <class IGraphicLib>
     class DLLoader {
     public:
-        DLLoader(const char *path)
-        : _libName(path)
-        {
+        DLLoader() = default;
+
+        DLLoader(const char *path) {
+            loadLib(path);
+        }
+
+        ~DLLoader() {
+            closeLib();
+        }
+
+        void loadLib(const char *path) {
+            if (_lib != nullptr)
+                closeLib();
             _lib = dlopen(path, RTLD_LAZY);
 
             if (_lib == nullptr)
                 throw arc::err::DLError(dlerror());
         }
 
-        ~DLLoader() {
+        void closeLib() {
+            if (_lib != nullptr)
+                return;
             if (dlclose(_lib) != 0)
                 std::cerr << dlerror() << std::endl;
+            _lib = nullptr;
         }
 
         gl::IGraphicLib *getInstance() {
@@ -42,8 +55,7 @@ namespace arc {
         }
 
     private:
-        void *_lib;
-        const std::string _libName;
+        void *_lib = nullptr;
     };
 }
 

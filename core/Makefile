@@ -28,17 +28,12 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
 
-tests_run:
-	make -C tests
-
 clean:
 	$(RM) $(OBJ)
-	make clean -C tests
 
 fclean: clean
 	$(RM) $(NAME)
-	make fclean -C tests
 
 re: fclean all
 
-.PHONY: all tests_run clean fclean re
+.PHONY: all clean fclean re

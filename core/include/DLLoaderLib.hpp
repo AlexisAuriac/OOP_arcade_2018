@@ -29,12 +29,13 @@ namespace arc {
         }
 
         void loadLib(const char *path) {
+            const void *newLib = dlopen(path, RTLD_LAZY);
+
+            if (newLib == nullptr)
+                throw arc::err::DLError(dlerror());
             if (_lib != nullptr)
                 closeLib();
-            _lib = dlopen(path, RTLD_LAZY);
-
-            if (_lib == nullptr)
-                throw arc::err::DLError(dlerror());
+            _lib = newLib;
         }
 
         void closeLib() {

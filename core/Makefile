@@ -21,7 +21,7 @@ CXXFLAGS	+=	-Wall -Wextra
 
 LDFLAGS		=	-ldl
 
-NAME		=	arcade
+NAME		=	../arcade
 
 all: $(NAME)
 

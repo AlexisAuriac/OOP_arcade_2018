@@ -9,8 +9,6 @@
 #define ARCADE_HPP
 
 #include <iostream>
-#include <exception>
-#include <elf.h>
 
 namespace arc {
     static const int SUCCESS = 0;
@@ -18,25 +16,10 @@ namespace arc {
 
     class Arcade {
     public:
-        Arcade()
-        ~Arcade();
+        Arcade() = default;
+        ~Arcade() = default;
 
         int run(int ac, char **av);
-    };
-
-    class Error : public std::exception {
-    public:
-        Error(std::string const& msg = "")
-        : _msg(msg)
-        {}
-        
-        const char *what() const no_except override
-        {
-            return _msg.c_str();
-        }
-
-    private:
-        const std::string _msg;
     };
 }
 #endif

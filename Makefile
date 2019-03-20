@@ -7,7 +7,8 @@
 
 CXX			?=	g++
 
-SRC			=	main.cpp
+SRC			=	main.cpp	\
+				Error.cpp
 
 SRC			:=	$(addprefix src/, $(SRC))
 

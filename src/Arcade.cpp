@@ -6,10 +6,11 @@
 */
 
 #include <iostream>
+#include <string>
 #include "Arcade.hpp"
 #include "Error.hpp"
 
-void arc::Arcade::handle_argument_errors(
+void arc::Arcade::handleArgumentErrors(
     int ac,
     __attribute__((unused)) char **av)
 {
@@ -17,10 +18,16 @@ void arc::Arcade::handle_argument_errors(
         throw arc::err::Argument();
 }
 
+void arc::Arcade::loadInitLib(const std::string &libName)
+{
+}
+
 int arc::Arcade::run(int ac, char **av)
 {
     try {
-        handle_argument_errors(ac, av);
+        handleArgumentErrors(ac, av);
+        loadInitLib(av[1]);
+        // openMainMenu();
     } catch(const arc::err::Arcade &e) {
         std::cerr << e.what() << std::endl;
         return arc::FAILURE;

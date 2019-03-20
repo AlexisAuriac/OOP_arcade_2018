@@ -9,6 +9,7 @@
 #define ARCADE_HPP
 
 #include <iostream>
+#include <string>
 #include "Error.hpp"
 
 namespace arc {
@@ -23,7 +24,8 @@ namespace arc {
         int run(int ac, char **av);
 
     private:
-        void handle_argument_errors(int ac, char **av);
+        void handleArgumentErrors(int ac, char **av);
+        void loadInitLib(const std::string &libName);
     };
 }
 

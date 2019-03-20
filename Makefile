@@ -19,12 +19,14 @@ CPPFLAGS	+=	-I include
 
 CXXFLAGS	+=	-Wall -Wextra
 
+LDFLAGS		=	-ldl
+
 NAME		=	arcade
 
 all:$(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) -o $(NAME) $(OBJ)
+	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 tests_run:
 	make -C tests

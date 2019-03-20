@@ -23,6 +23,7 @@ int arc::Arcade::run(int ac, char **av)
     try {
         handleArgumentErrors(ac, av);
         _glLoader.loadLib(av[1]);
+        _gl = _glLoader.getInstance();
         // openMainMenu();
     } catch(const arc::err::Arcade &e) {
         std::cerr << e.what() << std::endl;

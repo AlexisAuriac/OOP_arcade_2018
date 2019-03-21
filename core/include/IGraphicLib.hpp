@@ -14,6 +14,38 @@
 namespace arc::gl {
     static const char ENTRY_POINT_NAME[] = "entryPoint";
 
+    enum {
+        BLACK,
+        BLUE,
+        GREEN,
+        CYAN,
+        RED,
+        MAGENTA,
+        BROWN,
+        WHITE,
+        GRAY,
+        YELLOW
+    };
+
+    typedef int color_t;
+
+    typedef struct textParams {
+        short x;
+        short y;
+        color_t colorFg : 4;
+        color_t colorBg : 4;
+        bool bold : 1;
+
+        textParams(
+            int x = 0,
+            int y = 0,
+            int fg = WHITE,
+            int bg = BLACK,
+            bool bold = false)
+        : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
+        {}
+    } textParams_t;
+
     class IGraphicLib {
         public:
             virtual ~IGraphicLib() = default;
@@ -23,7 +55,9 @@ namespace arc::gl {
             virtual void clear() = 0;
             virtual int getCols() = 0;
             virtual int getLines() = 0;
-            virtual void printText(const std::string &str, int col, int line) = 0;
+            virtual void printText(
+                const std::string &str,
+                const textParams_t &params) = 0;
     };
 }
 

@@ -37,6 +37,10 @@ namespace arc {
         std::string trimPath(const std::string &libName) noexcept;
         void init(const std::string &libName);
 
+        void displayMenu(
+            const std::string &listName,
+            std::list<std::string> entries,
+            int col);
         void mainMenu();
 
     private:

@@ -20,7 +20,9 @@ namespace arc::gl {
             void clear() override;
             int getCols() override;
             int getLines() override;
-            void printText(const std::string &str, int col, int line) override;
+            void printText(
+                const std::string &str,
+                const textParams_t &params) override;
     };
 }
 

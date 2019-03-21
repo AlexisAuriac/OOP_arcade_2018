@@ -17,6 +17,8 @@ CPPFLAGS	+=	-I include -I ../../core/include
 
 CXXFLAGS	+=	-Wall -Wextra -fPIC
 
+LDFLAGS		+=	-lncurses
+
 NAME		=	../lib_arcade_ncurses.so
 
 all: $(NAME)

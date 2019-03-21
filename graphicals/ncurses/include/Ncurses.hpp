@@ -11,13 +11,11 @@
 #include "IGraphicLib.hpp"
 
 namespace arc::gl {
-    // class Ncurses {
     class Ncurses : public IGraphicLib {
         public:
             void openWindow() override;
             void closeWindow() override;
-            // void openWindow();
-            // void closeWindow();
+            void display() override;
     };
 }
 

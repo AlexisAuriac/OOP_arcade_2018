@@ -7,33 +7,23 @@
 
 #include <iostream>
 #include <ncurses.h>
+#include <unistd.h>
 #include "Ncurses.hpp"
 
-// void arc::gl::Ncurses::openWindow()
-// {
-//     // initscr();
-//     std::cout << "openWindow" << std::endl;
+void arc::gl::Ncurses::openWindow()
+{
+    initscr();
+}
 
-// }
+void arc::gl::Ncurses::closeWindow()
+{
+    endwin();
+}
 
-// void arc::gl::Ncurses::closeWindow()
-// {
-//     // endwin();
-//     std::cout << "closeWindow" << std::endl;
-// }
-
-// arc::gl::Ncurses::Ncurses()
-// {
-//     initscr();
-//     std::cout << "Initialistation of ncurses library" << std::endl;
-
-// }
-
-// arc::gl::Ncurses::~Ncurses()
-// {
-//     endwin();
-//     std::cout << "Stop of ncurses library" << std::endl;
-// }
+void arc::gl::Ncurses::display()
+{
+    refresh();
+}
 
 // void arc::gl::Ncurses::loop()
 // {
@@ -52,8 +42,7 @@
 // }
 
 extern "C"
-// arc::gl::IGraphicLib *entryPoint()
-void *entryPoint()
+arc::gl::IGraphicLib *entryPoint()
 {
-    return new arc::gl::Ncurses();
+    return new arc::gl::Ncurses;
 }

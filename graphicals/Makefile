@@ -5,8 +5,7 @@
 ## Makefile for grapical libs.
 ##
 
-LIBS	=	SDL2		\
-			ncurses
+LIBS	=	ncurses
 
 all: libs
 

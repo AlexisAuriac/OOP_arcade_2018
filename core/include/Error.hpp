@@ -35,11 +35,16 @@ namespace arc::err {
         Argument(const std::string &msg);
     };
 
+    class Asset : public Arcade {
+    public:
+        Asset(const std::string &f, const std::string &dir, const std::string &err);
+        Asset(const std::string &dir, const std::string &err);
+        Asset(const std::string &err);
+    };
+
     class DLError : public Arcade {
     public:
-        DLError(const std::string &msg)
-        : Arcade(msg, "Loading Error")
-        {}
+        DLError(const std::string &msg);
     };
 }
 

@@ -27,3 +27,17 @@ arc::err::Argument::Argument()
 arc::err::Argument::Argument(const std::string &msg)
 : Arcade(msg, "Argument Error")
 {}
+
+arc::err::Asset::Asset(const std::string &f, const std::string &dir, const std::string &err)
+: Arcade(f + ": " + dir + ": " + err)
+{}
+arc::err::Asset::Asset(const std::string &dir, const std::string &err)
+: Arcade(dir + ": " + err)
+{}
+arc::err::Asset::Asset(const std::string &err)
+: Arcade(err)
+{}
+
+arc::err::DLError::DLError(const std::string &msg)
+: Arcade(msg, "Loading Error")
+{}

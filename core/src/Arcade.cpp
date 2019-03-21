@@ -27,42 +27,6 @@ void arc::Arcade::handleArgumentErrors(
         throw arc::err::Argument();
 }
 
-#include <algorithm>
-
-void print(const std::string &value)
-{
-    std::cout << value.c_str() << std::endl;
-}
-
-void arc::Arcade::ReadLibDir(
-    const char *dirName,
-    std::list<std::string> &fList)
-{
-    DIR *dir = opendir(dirName);
-    struct dirent *file = nullptr;
-
-    fList.clear();
-    if (dir == nullptr)
-        throw arc::err::Asset("opendir", dirName, strerror(errno));
-    while (true) {
-        file = readdir(dir);
-        if (!file)
-            break;
-        else if (file->d_name[0] == '.')
-            continue;
-        fList.push_back(file->d_name);
-    }
-    fList.sort();
-    for_each(fList.begin(), fList.end(), print);//
-    closedir(dir);
-}
-
-void arc::Arcade::getAssets()
-{
-    ReadLibDir(arc::GAMES_DIR, _games);
-    ReadLibDir(arc::GLS_DIR, _gls);
-}
-
 void arc::Arcade::mainMenu()
 {
     _gl->openWindow();
@@ -80,9 +44,7 @@ int arc::Arcade::run(int ac, char **av)
 {
     try {
         handleArgumentErrors(ac, av);
-        _glLoader.loadLib(av[1]);
-        _gl = _glLoader.getInstance();
-        getAssets();
+        init(av[1]);
         // mainMenu();
     } catch(const arc::err::Arcade &e) {
         std::cerr << e.what() << std::endl;

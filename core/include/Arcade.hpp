@@ -28,14 +28,20 @@ namespace arc {
 
         int run(int ac, char **av);
 
+
     private:
         void handleArgumentErrors(int ac, char **av);
 
-        void mainMenu();
         void ReadLibDir(const char *dirName, std::list<std::string> &fList);
         void getAssets();
+        std::string trimPath(const std::string &libName) noexcept;
+        void init(const std::string &libName);
+
+        void mainMenu();
 
     private:
+        std::string _currGl;
+
         DLLoader<gl::IGraphicLib> _glLoader;
         gl::IGraphicLib *_gl = nullptr;
         // DLLoader<game::Igame> _gameLoader;

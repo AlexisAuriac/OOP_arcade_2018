@@ -26,9 +26,7 @@ void arc::Arcade::mainMenu()
     int cols = _gl->getCols();
     int lines = _gl->getLines();
 
-    // std::cout << "cols: " << cols << std::endl;
-    // std::cout << "lines: " << lines << std::endl;
-    _gl->printText("hello", cols / 2, lines / 2);
+    _gl->printText("hi, bye, die, my, why, lie, dye, rely, I, nigh, high, fly", cols / 2, lines / 2);
     _gl->display();
     sleep(2);
     _gl->closeWindow();

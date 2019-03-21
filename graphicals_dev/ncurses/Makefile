@@ -2,12 +2,12 @@
 ## EPITECH PROJECT, 2018
 ## arcade
 ## File description:
-## Makefile for SDL2 graphical library.
+## Makefile for ncurses graphical library.
 ##
 
 CXX			?=	g++
 
-SRC			=	SDL2.cpp
+SRC			=	Ncurses.cpp
 
 SRC			:=	$(addprefix src/, $(SRC))
 
@@ -17,7 +17,9 @@ CPPFLAGS	+=	-I include -I ../../core/include
 
 CXXFLAGS	+=	-Wall -Wextra -fPIC
 
-NAME		=	../lib_arcade_sdl2.so
+LDFLAGS		+=	-lncurses
+
+NAME		=	../../graphicals/lib_arcade_ncurses.so
 
 all: $(NAME)
 

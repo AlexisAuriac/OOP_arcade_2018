@@ -15,8 +15,8 @@ namespace arc::gl {
 
     class IGraphicLib {
         public:
-            virtual void openWindow();
-            virtual void closeWindow();
+            virtual void openWindow() = 0;
+            virtual void closeWindow() = 0;
     };
 }
 

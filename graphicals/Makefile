@@ -5,7 +5,8 @@
 ## Makefile for grapical libs.
 ##
 
-LIBS	=	SDL2
+LIBS	=	SDL2 \
+			SFML
 
 all: libs
 

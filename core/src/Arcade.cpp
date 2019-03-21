@@ -62,7 +62,7 @@ void arc::Arcade::mainMenu()
     displayMenu("LIBS", _gls, _gl->getCols() / 4);
     displayMenu("GAMES", _games, _gl->getCols() / 4 * 3);
     _gl->display();
-    sleep(100);
+    while (_gl->getEvent() != arc::gl::Escape) {}
     _gl->closeWindow();
 }
 

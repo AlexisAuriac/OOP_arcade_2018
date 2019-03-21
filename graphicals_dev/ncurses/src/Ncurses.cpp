@@ -16,6 +16,7 @@ void arc::gl::Ncurses::openWindow()
     initscr();
     keypad(stdscr, TRUE);
     noecho();
+    nodelay(stdscr, TRUE);
     start_color();
     for (int i = 0 ; i < 16 ; ++i) {
         for (int j = 0 ; j < 16 ; ++j)
@@ -74,10 +75,24 @@ void arc::gl::Ncurses::printText(
     mvprintw(params.y, correctedCol, str.c_str());
 }
 
-// int arc::gl::Ncurses::getKey() const
-// {
-//     return (getch());
-// }
+arc::gl::event_t arc::gl::Ncurses::getEvent()
+{
+    int ch = getch();
+
+    try {
+        return CONNECT_EVENTS.at(ch);
+    } catch (const std::out_of_range &e) {
+        return Unknown;
+    }
+}
+
+void arc::gl::Ncurses::drawSquare(int x, int y, arc::gl::color_t color)
+{
+    int ncColor = CONNECT_COLORS[color];
+
+    attron(COLOR_PAIR(ncColor * 16 + ncColor));
+    mvprintw(y, x, " ");
+}
 
 extern "C"
 arc::gl::IGraphicLib *entryPoint()

@@ -13,6 +13,8 @@
 void arc::gl::Ncurses::openWindow()
 {
     initscr();
+    keypad(stdscr, TRUE);
+    noecho();
 }
 
 void arc::gl::Ncurses::closeWindow()
@@ -23,6 +25,26 @@ void arc::gl::Ncurses::closeWindow()
 void arc::gl::Ncurses::display()
 {
     refresh();
+}
+
+void arc::gl::Ncurses::clear()
+{
+    clear();
+}
+
+int arc::gl::Ncurses::getCols()
+{
+    return COLS;
+}
+
+int arc::gl::Ncurses::getLines()
+{
+    return LINES;
+}
+
+void arc::gl::Ncurses::printText(const std::string &str, int col, int line)
+{
+    mvprintw(line, col, str.c_str());
 }
 
 // void arc::gl::Ncurses::loop()

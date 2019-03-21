@@ -25,6 +25,8 @@ namespace arc {
     private:
         void handleArgumentErrors(int ac, char **av);
 
+        void mainMenu();
+
     private:
         DLLoader<gl::IGraphicLib> _glLoader;
         gl::IGraphicLib *_gl;

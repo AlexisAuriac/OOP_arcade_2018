@@ -19,6 +19,10 @@ namespace arc::gl {
             virtual void openWindow() = 0;
             virtual void closeWindow() = 0;
             virtual void display() = 0;
+            virtual void clear() = 0;
+            virtual int getCols() = 0;
+            virtual int getLines() = 0;
+            virtual void printText(const std::string &str, int col, int line) = 0;
     };
 }
 

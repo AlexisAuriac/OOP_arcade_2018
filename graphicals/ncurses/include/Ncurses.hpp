@@ -8,6 +8,7 @@
 #ifndef NCURES_HPP
 #define NCURSES_HPP
 
+#include <string>
 #include "IGraphicLib.hpp"
 
 namespace arc::gl {
@@ -16,6 +17,10 @@ namespace arc::gl {
             void openWindow() override;
             void closeWindow() override;
             void display() override;
+            void clear() override;
+            int getCols() override;
+            int getLines() override;
+            void printText(const std::string &str, int col, int line) override;
     };
 }
 

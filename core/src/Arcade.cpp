@@ -41,6 +41,7 @@ void arc::Arcade::ReadLibDir(
     DIR *dir = opendir(dirName);
     struct dirent *file = nullptr;
 
+    fList.clear();
     if (dir == nullptr)
         throw arc::err::Asset("opendir", dirName, strerror(errno));
     while (true) {
@@ -52,6 +53,7 @@ void arc::Arcade::ReadLibDir(
         fList.push_back(file->d_name);
     }
     fList.sort();
+    for_each(fList.begin(), fList.end(), print);//
     closedir(dir);
 }
 
@@ -81,7 +83,7 @@ int arc::Arcade::run(int ac, char **av)
         _glLoader.loadLib(av[1]);
         _gl = _glLoader.getInstance();
         getAssets();
-        mainMenu();
+        // mainMenu();
     } catch(const arc::err::Arcade &e) {
         std::cerr << e.what() << std::endl;
         return arc::FAILURE;

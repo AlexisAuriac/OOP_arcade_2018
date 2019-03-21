@@ -16,11 +16,11 @@ void arc::gl::Ncurses::openWindow()
     initscr();
     keypad(stdscr, TRUE);
     noecho();
-    // start_color();
-    // for (int i = 0 ; i < 16 ; ++i) {
-    //     for (int j = 0 ; j < 16 ; ++j)
-    //         init_pair(i * 16 + j, i, j);
-    // }
+    start_color();
+    for (int i = 0 ; i < 16 ; ++i) {
+        for (int j = 0 ; j < 16 ; ++j)
+            init_pair(i * 16 + j, i, j);
+    }
 }
 
 void arc::gl::Ncurses::closeWindow()
@@ -56,6 +56,8 @@ void arc::gl::Ncurses::printText(
 {
     int len = str.length();
     int correctedCol;
+    int fg = CONNECT_COLORS[params.colorFg];
+    int bg = CONNECT_COLORS[params.colorBg];
 
     if (params.x + len > COLS)
         correctedCol = COLS - len;
@@ -64,7 +66,7 @@ void arc::gl::Ncurses::printText(
         if (correctedCol < 0)
             correctedCol = 0;
     }
-    attron(COLOR_PAIR((COLOR_WHITE + 8) * 16 + COLOR_BLACK));
+    attron(COLOR_PAIR(fg * 16 + bg));
     if (params.bold)
         attron(A_BOLD);
     else

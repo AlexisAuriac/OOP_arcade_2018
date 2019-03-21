@@ -21,10 +21,10 @@ namespace arc::gl {
         CYAN,
         RED,
         MAGENTA,
-        BROWN,
         WHITE,
         GRAY,
-        YELLOW
+        YELLOW,
+        NB_COLORS
     };
 
     typedef int color_t;

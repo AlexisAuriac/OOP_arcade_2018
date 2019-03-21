@@ -44,19 +44,8 @@ int arc::gl::Ncurses::getLines()
 
 void arc::gl::Ncurses::printText(const std::string &str, int col, int line)
 {
-    mvprintw(line, col, str.c_str());
+    mvprintw(line, col - str.length() / 2, str.c_str());
 }
-
-// void arc::gl::Ncurses::loop()
-// {
-//     std::string str1 = "PACMAN/NIBBLER";
-//     std::string str2 = "Ncurse/SFML";
-//     move(LINES / 2, (COLS / 2) - 10);
-//     printw(str1.c_str());
-//     move((LINES / 2) + 3, (COLS / 2) - 10);
-//     printw(str2.c_str());
-//     refresh();
-// }
 
 // int arc::gl::Ncurses::getKey() const
 // {

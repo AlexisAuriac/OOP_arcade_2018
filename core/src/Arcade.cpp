@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include "Arcade.hpp"
 #include "Error.hpp"
+#include "IGraphicLib.hpp"
 
 arc::Arcade::~Arcade()
 {
@@ -42,6 +43,10 @@ void arc::Arcade::displayMenu(
     params.bold = false;
     for (const std::string &s : entries) {
         ++params.y;
+        if (s == _currGl)
+            params.colorFg = arc::gl::GREEN;
+        else
+            params.colorFg = arc::gl::WHITE;
         _gl->printText(s, params);
     }
 }

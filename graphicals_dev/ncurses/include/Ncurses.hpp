@@ -149,6 +149,7 @@ namespace arc::gl {
                 const std::string &str,
                 const textParams_t &params) override;
             event_t getEvent() override;
+            void drawSquare(int x, int y, color_t color) override;
     };
 }
 

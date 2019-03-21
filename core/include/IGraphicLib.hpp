@@ -147,6 +147,7 @@ namespace arc::gl {
                 const std::string &str,
                 const textParams_t &params) = 0;
             virtual event_t getEvent() = 0;
+            virtual void drawSquare(int x, int y, color_t color) = 0;
     };
 }
 

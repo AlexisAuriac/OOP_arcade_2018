@@ -86,6 +86,14 @@ arc::gl::event_t arc::gl::Ncurses::getEvent()
     }
 }
 
+void arc::gl::Ncurses::drawSquare(int x, int y, arc::gl::color_t color)
+{
+    int ncColor = CONNECT_COLORS[color];
+
+    attron(COLOR_PAIR(ncColor * 16 + ncColor));
+    mvprintw(y, x, " ");
+}
+
 extern "C"
 arc::gl::IGraphicLib *entryPoint()
 {

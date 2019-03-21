@@ -14,6 +14,5 @@ class Nibbler
     public:
         Nibbler();
         ~Nibbler();
-};
 
 #endif

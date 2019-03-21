@@ -19,7 +19,7 @@ CXXFLAGS    +=  -Wall -Wextra -fPIC
 
 LDFLAGS     +=  -lncurses
 
-NAME        =   ../../games/Nibbler
+NAME        =   ../../games/lib_arcade_nibbler.so
 
 all: $(NAME)
 

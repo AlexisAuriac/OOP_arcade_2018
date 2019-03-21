@@ -1,10 +1,17 @@
 #include <iostream>
+#include "DLLoaderLib.hpp"
+#include "IGraphicLib.hpp"
 #include "Nibbler.hpp"
 
-int main()
+int main(int ac, char **av)
 {
-    Nibbler t;
+    arc::DLLoader<arc::gl::IGraphicLib> loader(av[1]);
+    arc::gl::IGraphicLib *gl = loader.getInstance();
 
-    t.print_snake();
+    gl->openWindow();
+    Nibbler t(gl);
+    t.gameRun(gl);
+    gl->closeWindow();
+    delete gl;
     return 0;
 }

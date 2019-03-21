@@ -37,7 +37,7 @@ void arc::gl::Ncurses::display()
 
 void arc::gl::Ncurses::clear()
 {
-    clear();
+    erase();
 }
 
 int arc::gl::Ncurses::getCols()

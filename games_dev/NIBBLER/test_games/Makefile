@@ -10,15 +10,15 @@ CXX         ?=  g++
 SRC         =   main.cpp\
                 Nibbler.cpp
 
-SRC         :=  $(addprefix src/, $(SRC))
+SRC         :=  $(addprefix src/, $(SRC)) ../../../core/src/Error.cpp
 
 OBJ         =   $(SRC:.cpp=.o)
 
-CPPFLAGS    +=  -I include
+CPPFLAGS    +=  -I include -I ../../../core/include
 
 CXXFLAGS    +=  -Wall -Wextra
 
-LDFLAGS     +=  -lncurses
+LDFLAGS		+=	-ldl
 
 NAME        =   essaie
 

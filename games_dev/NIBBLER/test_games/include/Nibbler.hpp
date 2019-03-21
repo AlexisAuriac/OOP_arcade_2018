@@ -11,17 +11,21 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include "IGraphicLib.hpp"
 
 class Nibbler
 {
     private:
-        // int _row;
-        // int _col;
+        int _row;
+        int _col;
         std::vector< std::pair <int, int> > _tail;
+        void print_snake(arc::gl::IGraphicLib *gl);
     public:
-        Nibbler();
+        Nibbler(arc::gl::IGraphicLib *gl);
         ~Nibbler();
-        void print_snake();
+        void gameRun(arc::gl::IGraphicLib *gl);
+        void move_snake();
+        // void print_snake();
 };
 
 #endif

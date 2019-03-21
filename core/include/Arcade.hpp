@@ -40,7 +40,9 @@ namespace arc {
         void displayMenu(
             const std::string &listName,
             std::list<std::string> entries,
-            int col);
+            int col,
+            int curX,
+            int curY);
         void mainMenu();
 
     private:

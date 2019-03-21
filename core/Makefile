@@ -7,10 +7,11 @@
 
 CXX			?=	g++
 
-SRC			=	main.cpp		\
-				Arcade.cpp		\
-				ArcadeInit.cpp	\
-				Error.cpp
+SRC			=	main.cpp			\
+				Error.cpp			\
+				Arcade.cpp			\
+				ArcadeInit.cpp		\
+				ArcadeMainMenu.cpp
 
 SRC			:=	$(addprefix src/, $(SRC))
 

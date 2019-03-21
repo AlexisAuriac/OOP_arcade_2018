@@ -6,14 +6,8 @@
 */
 
 #include <iostream>
-#include <string>
-#include <cstring>
-#include <cerrno>
-#include <dirent.h>
-#include <unistd.h>
 #include "Arcade.hpp"
 #include "Error.hpp"
-#include "IGraphicLib.hpp"
 
 arc::Arcade::~Arcade()
 {
@@ -26,44 +20,6 @@ void arc::Arcade::handleArgumentErrors(
 {
     if (ac != 2)
         throw arc::err::Argument();
-}
-
-void arc::Arcade::displayMenu(
-    const std::string &listName,
-    std::list<std::string> entries,
-    int col)
-{
-    int lines = _gl->getLines();
-    gl::textParams_t params;
-
-    params.x = col;
-    params.y = lines / 2 + (entries.size() / 2) - entries.size() - 1;
-    params.bold = true;
-    _gl->printText(listName, params);
-    params.bold = false;
-    for (const std::string &s : entries) {
-        ++params.y;
-        if (s == _currGl)
-            params.colorFg = arc::gl::GREEN;
-        else
-            params.colorFg = arc::gl::WHITE;
-        _gl->printText(s, params);
-    }
-}
-
-void arc::Arcade::mainMenu()
-{
-    _gl->openWindow();
-
-    for (int i = 0 ; i < 40 ; ++i)
-        _gls.push_back(std::to_string(i));
-    for (int i = 0 ; i < 40 ; ++i)
-        _games.push_back(std::to_string(i));
-    displayMenu("LIBS", _gls, _gl->getCols() / 4);
-    displayMenu("GAMES", _games, _gl->getCols() / 4 * 3);
-    _gl->display();
-    while (_gl->getEvent() != arc::gl::Escape) {}
-    _gl->closeWindow();
 }
 
 int arc::Arcade::run(int ac, char **av)

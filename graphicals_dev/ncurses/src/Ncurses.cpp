@@ -31,13 +31,12 @@ void arc::gl::Ncurses::closeWindow()
 
 void arc::gl::Ncurses::display()
 {
-    move(0, 0);
     refresh();
 }
 
 void arc::gl::Ncurses::clear()
 {
-    clear();
+    erase();
 }
 
 int arc::gl::Ncurses::getCols()

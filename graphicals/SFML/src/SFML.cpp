@@ -24,8 +24,11 @@ event_key SFML::getEvent()
     if(event.type != sf::Event::KeyPressed) {
         return Unknown;
     } else {
-        std::cout << "ok" << std::endl;
-        return A;
+        try {
+            return event_tab.at(event.key.code);
+        } catch (const std::out_of_range &e) {
+            return Unknown;
+        }
     }
 }
 

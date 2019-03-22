@@ -15,11 +15,10 @@ int main()
 {
     SFML game;
     game.openWindow();
-     game.getEvent();
      game.clear();
-    game.printText( "ok", 5, 5);
+     game.printText( "Menu", 50, 15);
      game.display();
-    //game.getBlock(3, 4);
-    sleep(5);
+     //game.getBlock(3, 4);
+    while (game.getEvent() == Unknown) {}
     game.closeWindow();
 }

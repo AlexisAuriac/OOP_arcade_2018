@@ -186,6 +186,21 @@ static const std::unordered_map<sf::Keyboard::Key, event_key> event_tab = {
     {sf::Keyboard::F15, F15},
 };
 
+    class Ncurses : public IGraphicLib {
+    private:
+        const int CONNECT_COLORS[NB_COLORS] = {
+            [BLACK] = COLOR_BLACK,
+            [BLUE] = COLOR_BLUE,
+            [GREEN] = COLOR_GREEN,
+            [CYAN] = COLOR_CYAN,
+            [RED] = COLOR_RED,
+            [MAGENTA] = COLOR_MAGENTA,
+            [WHITE] = COLOR_WHITE + 8,
+            [GRAY] = COLOR_WHITE,
+            [YELLOW] = COLOR_YELLOW,
+        };
+    }
+
 // namespace arc::gl {
     // class SFML : public IGraphicLib {
     class SFML {

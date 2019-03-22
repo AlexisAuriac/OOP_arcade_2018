@@ -22,9 +22,9 @@ namespace arc {
     static const char GAMES_DIR[] = "./games";
     static const char GLS_DIR[] = "./graphicals";
 
-    class Arcade {
+    class Core {
     public:
-        ~Arcade();
+        ~Core();
 
         int run(int ac, char **av);
 

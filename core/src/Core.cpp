@@ -6,15 +6,15 @@
 */
 
 #include <iostream>
-#include "Arcade.hpp"
+#include "Core.hpp"
 #include "Error.hpp"
 
-arc::Arcade::~Arcade()
+arc::Core::~Core()
 {
     delete _gl;
 }
 
-void arc::Arcade::handleArgumentErrors(
+void arc::Core::handleArgumentErrors(
     int ac,
     __attribute__((unused)) char **av)
 {
@@ -22,13 +22,13 @@ void arc::Arcade::handleArgumentErrors(
         throw arc::err::Argument();
 }
 
-int arc::Arcade::run(int ac, char **av)
+int arc::Core::run(int ac, char **av)
 {
     try {
         handleArgumentErrors(ac, av);
         init(av[1]);
         mainMenu();
-    } catch(const arc::err::Arcade &e) {
+    } catch(const arc::err::Core &e) {
         std::cerr << e.what() << std::endl;
         return arc::FAILURE;
     }

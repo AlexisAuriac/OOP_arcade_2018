@@ -6,11 +6,11 @@
 */
 
 #include <iostream>
-#include "Arcade.hpp"
+#include "Core.hpp"
 
 int main(int ac, char **av)
 {
-    arc::Arcade app;
+    arc::Core app;
 
     return app.run(ac, av);
 }

@@ -7,9 +7,9 @@
 
 #include <iostream>
 #include <string>
-#include "Arcade.hpp"
+#include "Core.hpp"
 
-void arc::Arcade::displayMenu(
+void arc::Core::displayMenu(
     const std::string &listName,
     std::list<std::string> entries,
     int col,
@@ -40,7 +40,7 @@ void arc::Arcade::displayMenu(
     }
 }
 
-void arc::Arcade::mainMenu()
+void arc::Core::mainMenu()
 {
     unsigned int x = 0;
     unsigned int y = 0;

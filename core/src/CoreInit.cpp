@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** arcade
 ** File description:
-** Intializes the Arcade object.
+** Intializes the Core object.
 */
 
 #include <iostream>
@@ -11,10 +11,10 @@
 #include <cerrno>
 #include <dirent.h>
 #include <unistd.h>
-#include "Arcade.hpp"
+#include "Core.hpp"
 #include "Error.hpp"
 
-void arc::Arcade::ReadLibDir(
+void arc::Core::ReadLibDir(
     const char *dirName,
     std::list<std::string> &fList)
 {
@@ -36,13 +36,13 @@ void arc::Arcade::ReadLibDir(
     closedir(dir);
 }
 
-void arc::Arcade::getAssets()
+void arc::Core::getAssets()
 {
     ReadLibDir(arc::GAMES_DIR, _games);
     ReadLibDir(arc::GLS_DIR, _gls);
 }
 
-std::string arc::Arcade::trimPath(const std::string &libName) noexcept
+std::string arc::Core::trimPath(const std::string &libName) noexcept
 {
     try {
         return libName.substr(libName.rfind('/') + 1);
@@ -51,7 +51,7 @@ std::string arc::Arcade::trimPath(const std::string &libName) noexcept
     }
 }
 
-void arc::Arcade::init(const std::string &libName)
+void arc::Core::init(const std::string &libName)
 {
     _glLoader.loadLib(libName.c_str());
     _gl = _glLoader.getInstance();

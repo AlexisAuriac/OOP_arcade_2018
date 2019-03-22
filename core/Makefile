@@ -7,11 +7,11 @@
 
 CXX			?=	g++
 
-SRC			=	main.cpp			\
-				Error.cpp			\
-				Core.cpp			\
-				CoreInit.cpp		\
-				CoreMainMenu.cpp
+SRC			=	main.cpp				\
+				Error.cpp				\
+				Core/Core.cpp			\
+				Core/CoreInit.cpp		\
+				Core/CoreMainMenu.cpp
 
 SRC			:=	$(addprefix src/, $(SRC))
 

@@ -32,6 +32,32 @@ event_key SFML::getEvent()
     }
 }
 
+void arc::gl::Ncurses::printText(
+    const std::string &str,
+    const textParams_t &params)
+{
+    int len = str.length();
+    int correctedCol;
+    int fg = CONNECT_COLORS[params.colorFg];
+    int bg = CONNECT_COLORS[params.colorBg];
+
+    if (params.x + len > COLS)
+        correctedCol = COLS - len;
+    else {
+        correctedCol = params.x - len / 2;
+        if (correctedCol < 0)
+            correctedCol = 0;
+    }
+    attron(COLOR_PAIR(fg * 16 + bg));
+    if (params.bold)
+        attron(A_BOLD);
+    else
+        attroff(A_BOLD);
+    mvprintw(params.y, correctedCol, str.c_str());
+}
+
+
+
 void SFML::printText(const std::string &str, int a, int b)
 {
     sf::Font font;
@@ -60,23 +86,13 @@ void SFML::display()
 //     _window.draw()
 // }
 
-void SFML::getBlock(int a, int b)
-{
-    sf::CircleShape square(a, b);
-    sf::Texture texture;
-    //texture.create(2, 2);
-    sf::Uint8 *pixels = new sf::Uint8[640, 480];
 
-    for (int x = 0; x < 640; ++x)
-        for (int y = 0; y < 480; ++y)
-        {
-            pixels[(x + y * 2) * 4 + 0] = 0;   
-            pixels[(x + y * 2) * 4 + 1] = 255; 
-            pixels[(x + y * 2) * 4 + 2] = 0;   
-            pixels[(x + y * 2) * 4 + 3] = 128; 
-        }
-        texture.update(pixels);
-    _window.draw(square);
+void arc::gl::Ncurses::drawSquare(int x, int y, arc::gl::color_t color)
+{
+    int ncColor = CONNECT_COLORS[color];
+
+    attron(COLOR_PAIR(ncColor * 16 + ncColor));
+    mvprintw(y, x, " ");
 }
 
 void SFML::closeWindow()

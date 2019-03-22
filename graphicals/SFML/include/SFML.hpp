@@ -186,20 +186,37 @@ static const std::unordered_map<sf::Keyboard::Key, event_key> event_tab = {
     {sf::Keyboard::F15, F15},
 };
 
-    class Ncurses : public IGraphicLib {
-    private:
-        const int CONNECT_COLORS[NB_COLORS] = {
-            [BLACK] = COLOR_BLACK,
-            [BLUE] = COLOR_BLUE,
-            [GREEN] = COLOR_GREEN,
-            [CYAN] = COLOR_CYAN,
-            [RED] = COLOR_RED,
-            [MAGENTA] = COLOR_MAGENTA,
-            [WHITE] = COLOR_WHITE + 8,
-            [GRAY] = COLOR_WHITE,
-            [YELLOW] = COLOR_YELLOW,
-        };
-    }
+enum {
+        BLACK,
+        BLUE,
+        GREEN,
+        CYAN,
+        RED,
+        MAGENTA,
+        WHITE,
+        GRAY,
+        YELLOW,
+        NB_COLORS
+    };
+
+    typedef int color_t;
+
+    typedef struct textParams {
+        short x;
+        short y;
+        color_t colorFg : 4;
+        color_t colorBg : 4;
+        bool bold : 1;
+
+        textParams(
+            int x = 0,
+            int y = 0,
+            int fg = WHITE,
+            int bg = BLACK,
+            bool bold = false)
+        : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
+        {}
+    } textParams_t;
 
 // namespace arc::gl {
     // class SFML : public IGraphicLib {
@@ -209,10 +226,13 @@ static const std::unordered_map<sf::Keyboard::Key, event_key> event_tab = {
         event_key getEvent();
         void clear();
         void display();
-        void printText(const std::string &str, int a, int b);
-        void openDraw();
+        int getCols();
+        int getLines();
+        void printText(
+            const std::string &str,
+            const textParams_t &params);
+        void drawSquare(int x, int y, color_t color);
         void closeWindow();
-        void getBlock(int a, int b);
 
     private:
         sf::RenderWindow _window;

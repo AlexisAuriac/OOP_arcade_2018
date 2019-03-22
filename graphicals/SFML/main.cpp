@@ -16,9 +16,9 @@ int main()
     SFML game;
     game.openWindow();
      game.clear();
-     game.printText( "Menu", 50, 15);
+     //game.printText( "Menu", 50, 15);
      game.display();
-     //game.getBlock(3, 4);
+     //game.drawSquare(3, 4);
     while (game.getEvent() == Unknown) {}
     game.closeWindow();
 }

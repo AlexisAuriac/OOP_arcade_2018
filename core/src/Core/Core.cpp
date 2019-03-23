@@ -10,6 +10,11 @@
 #include "Error.hpp"
 #include "MainMenu.hpp"
 
+arc::Core::Core()
+{
+    srand(time(NULL));
+}
+
 arc::Core::~Core()
 {
     delete _gl;
@@ -32,6 +37,9 @@ bool arc::Core::handleEvent(gl::event_t event)
     case gl::Num1:
         _state = IN_MENU;
         _gameLoader.closeLib();
+        return true;
+    case gl::Num2:
+        _game->restart();
         return true;
     default:
         return false;

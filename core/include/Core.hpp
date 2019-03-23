@@ -33,6 +33,7 @@ namespace arc {
         } states_t;
 
     public:
+        Core();
         ~Core();
 
         int run(int ac, char **av);

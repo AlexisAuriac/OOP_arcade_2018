@@ -20,14 +20,14 @@ namespace arc::game {
             void init(gl::IGraphicLib *gl) override;
             std::pair<state, int> play(gl::event_t event) override;
             void display() override;
+            void restart() override;
 
         private:
-            void dirSnake(gl::event_t event);
-            void moveSnake();
-            void manageEvent(gl::event_t event);
-
-            void manageHit();
             void posFruit(int flag);
+            void manageHit();
+            void moveSnake();
+            void dirSnake(gl::event_t event);
+            void manageEvent(gl::event_t event);
 
             void drawMap();
             void printScore();

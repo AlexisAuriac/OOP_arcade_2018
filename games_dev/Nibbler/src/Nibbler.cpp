@@ -24,7 +24,6 @@ void arc::game::Nibbler::init(gl::IGraphicLib *gl)
     _gl = gl;
     _row = gl->getLines();
     _col = gl->getCols();
-    srand(time(NULL));
     for (int i = 0 ; i < n ; ++i)
         _tabScore.push_back(std::make_pair(arr[i], arr1[i]));
     _tail.push_back(std::make_pair((_col / 2), (_row / 2)));
@@ -36,6 +35,13 @@ void arc::game::Nibbler::init(gl::IGraphicLib *gl)
     _movy = 0;
     _index = _tail.size();
     posFruit(1);
+}
+
+void arc::game::Nibbler::restart()
+{
+    _tail.clear();
+    _tabScore.clear();
+    init(_gl);
 }
 
 extern "C" arc::game::IGame *entryPoint()

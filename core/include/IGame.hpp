@@ -26,7 +26,7 @@ namespace arc::game {
             // virtual void init(gl::IGraphicLib &*gl) = 0;
             virtual std::pair<state, int> play(gl::event_t event) = 0;
             virtual void display() = 0;
-            // virtual void restart() = 0;
+            virtual void restart() = 0;
             // virtual void changeGl(gl::IGraphicLib *gl) = 0;
     };
 }

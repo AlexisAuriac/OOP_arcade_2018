@@ -54,13 +54,14 @@ arc::MainMenu::handleEvent(gl::event_t event)
     if (event == arc::gl::Enter) {
         if (_pos.first == 0)
             return std::make_pair(SELECT_GL, _gls[_pos.second]);
-        if (_pos.first == 1)
+        else if (_pos.first == 1)
             return std::make_pair(SELECT_GAME, "");
     }
     return std::make_pair(NOTHING, "");
 }
 
 void arc::MainMenu::displayList(
+    unsigned int nbList,
     const std::string &listName,
     std::vector<std::string> entries,
     int col)
@@ -77,7 +78,7 @@ void arc::MainMenu::displayList(
     for (const std::string &s : entries) {
         ++params.y;
         params.colorFg = arc::gl::WHITE;
-        if (i == _pos.second)
+        if (_pos.first == nbList && i == _pos.second)
             params.colorBg = arc::gl::BLUE;
         else
             params.colorBg = arc::gl::BLACK;
@@ -89,7 +90,7 @@ void arc::MainMenu::displayList(
 void arc::MainMenu::display()
 {
     _gl->clear();
-    displayList("LIBS", _gls, _gl->getCols() / 4);
-    displayList("GAMES", _games, _gl->getCols() / 4 * 3);
+    displayList(0, "LIBS", _gls, _gl->getCols() / 4);
+    displayList(1, "GAMES", _games, _gl->getCols() / 4 * 3);
     _gl->display();
 }

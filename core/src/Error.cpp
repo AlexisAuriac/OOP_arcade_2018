@@ -31,9 +31,11 @@ arc::err::Argument::Argument(const std::string &msg)
 arc::err::Asset::Asset(const std::string &f, const std::string &dir, const std::string &err)
 : Core(f + ": " + dir + ": " + err)
 {}
+
 arc::err::Asset::Asset(const std::string &dir, const std::string &err)
 : Core(dir + ": " + err)
 {}
+
 arc::err::Asset::Asset(const std::string &err)
 : Core(err)
 {}

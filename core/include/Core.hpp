@@ -43,6 +43,7 @@ namespace arc {
         void init(const std::string &libName);
 
         void handleEvent(gl::event_t event);
+        void alert(const std::string &str);
         void mainLoop();
 
     private:

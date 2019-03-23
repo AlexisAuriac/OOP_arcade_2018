@@ -37,6 +37,7 @@ namespace arc {
 
     private:
         void displayList(
+            unsigned int nbList,
             const std::string &listName,
             std::vector<std::string> entries,
             int col);

@@ -32,6 +32,13 @@ void arc::Core::handleEvent(gl::event_t event)
     }
 }
 
+void arc::Core::alert(const std::string &str)
+{
+    _gl->printText(str, gl::textParams());
+    _gl->display();
+    while (_gl->getEvent() == gl::Unknown) {}
+}
+
 void arc::Core::mainLoop()
 {
     arc::gl::event_t event;
@@ -44,14 +51,16 @@ void arc::Core::mainLoop()
         if (_state == IN_MENU) {
             std::pair<arc::MainMenu::action, const std::string &> res = _menu.handleEvent(event);
 
-            switch (res.first) {
-            case arc::MainMenu::SELECT_GL:
-                _glLoader.loadLib(res.second);
-                break;
-            case arc::MainMenu::SELECT_GAME:
+            if (res.first == arc::MainMenu::SELECT_GL) {
+                try {
+                    _glLoader.loadLib(res.second);
+                } catch (const arc::err::DLError &e) {
+                    alert(e.what());
+                }
+            }
+            else if (res.first == arc::MainMenu::SELECT_GAME) {
                 _state = IN_GAME;
                 // _gameLoader.loadLib(res.second);
-                break;
             }
             _menu.display();
         } else if (_state == IN_GAME) {

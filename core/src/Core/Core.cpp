@@ -57,28 +57,24 @@ void arc::Core::playMenu(gl::event_t event)
         }
     } else if (res.first == arc::MainMenu::SELECT_GAME) {
         _state = IN_GAME;
-        if (!_gameLoader.isOpen(res.second))
-            _gameLoader.loadLib(res.second);
-    }
-    _menu.display();
+        _gameLoader.loadLib(res.second);
+        _game = _gameLoader.getInstance();
+        _game->init(_gl);
+    } else
+        _menu.display();
 }
 
 void arc::Core::playGame(gl::event_t event)
 {
-    _gl->clear();
-    _gl->printText("lol", gl::textParams());
-    _gl->display();
+    std::pair<game::state, int> res = _game->play(event);
 
-    if (event == gl::Space)
+    if (res.first == game::OVER) {
         _state = IN_MENU;
-//     std::pair<game::state, int> res = _game.play(event);
-
-//     if (res.first == game::OVER) {
-//         _state = IN_MENU;
-//         _gameLoader.closeLib();
-//         saveScore(res.second);
-//     }
-//     _game.display();
+        delete _game;
+        _gameLoader.closeLib();
+        // saveScore(res.second);
+    } else
+        _game->display();
 }
 
 void arc::Core::mainLoop()

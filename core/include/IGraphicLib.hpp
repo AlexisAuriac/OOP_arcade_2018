@@ -100,7 +100,7 @@ namespace arc::gl {
         KeyCount
     };
 
-    typedef int event_t;
+    using event_t = int;
 
     enum {
         BLACK,
@@ -115,9 +115,9 @@ namespace arc::gl {
         NB_COLORS
     };
 
-    typedef int color_t;
+    using color_t = int;
 
-    typedef struct textParams {
+    using textParams_t = struct textParams {
         short x;
         short y;
         color_t colorFg : 4;
@@ -132,7 +132,7 @@ namespace arc::gl {
             bool bold = false)
         : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
         {}
-    } textParams_t;
+    };
 
     class IGraphicLib {
         public:

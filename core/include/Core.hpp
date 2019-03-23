@@ -26,11 +26,11 @@ namespace arc {
     static const char GLS_DIR[] = "./graphicals/";
 
     class Core {
-        typedef enum {
+        using states_t = enum {
             IN_MENU,
             IN_GAME,
             OVER
-        } states_t;
+        };
 
     public:
         Core();

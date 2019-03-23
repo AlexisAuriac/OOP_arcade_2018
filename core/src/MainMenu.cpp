@@ -46,7 +46,7 @@ bool arc::MainMenu::HandleMove(gl::event_t event)
     return false;
 }
 
-std::pair<arc::MainMenu::action, const std::string &>
+std::pair<arc::MainMenu::action, const std::string>
 arc::MainMenu::handleEvent(gl::event_t event)
 {
     if (HandleMove(event))

@@ -29,8 +29,11 @@ namespace arc {
         }
 
         void loadLib(const std::string &path) {
-            void *newLib = dlopen(path.c_str(), RTLD_LAZY);
+            void *newLib;
 
+            if (dlopen(path.c_str(), RTLD_LAZY | RTLD_NOLOAD))
+                throw arc::err::DLError(path + ": already open");
+            newLib = dlopen(path.c_str(), RTLD_LAZY);
             if (newLib == nullptr)
                 throw arc::err::DLError(dlerror());
             if (_lib != nullptr)

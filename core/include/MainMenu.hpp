@@ -32,7 +32,7 @@ namespace arc {
             std::vector<std::string> &games);
         void changeLib(gl::IGraphicLib *gl);
         bool HandleMove(gl::event_t event);
-        std::pair<action, const std::string &> handleEvent(gl::event_t event);
+        std::pair<action, const std::string> handleEvent(gl::event_t event);
         void display();
 
     private:

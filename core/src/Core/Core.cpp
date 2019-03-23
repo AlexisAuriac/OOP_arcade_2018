@@ -49,7 +49,7 @@ void arc::Core::mainLoop()
         event = _gl->getEvent();
         handleEvent(event);
         if (_state == IN_MENU) {
-            std::pair<arc::MainMenu::action, const std::string &> res = _menu.handleEvent(event);
+            std::pair<arc::MainMenu::action, const std::string> res = _menu.handleEvent(event);
 
             if (res.first == arc::MainMenu::SELECT_GL) {
                 try {

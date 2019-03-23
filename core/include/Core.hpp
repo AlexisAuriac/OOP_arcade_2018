@@ -14,6 +14,8 @@
 #include "Error.hpp"
 #include "IGraphicLib.hpp"
 #include "DLLoaderLib.hpp"
+#include "IGame.hpp"
+#include "DLLoaderGame.hpp"
 #include "MainMenu.hpp"
 
 namespace arc {
@@ -55,8 +57,8 @@ namespace arc {
 
         DLLoader<gl::IGraphicLib> _glLoader;
         gl::IGraphicLib *_gl = nullptr;
-        // DLLoader<game::Igame> _gameLoader;
-        // game::IGame *_game = nullptr;
+        DLLoader<game::IGame> _gameLoader;
+        game::IGame *_game = nullptr;
 
         std::vector<std::string> _games;
         std::vector<std::string> _gls;

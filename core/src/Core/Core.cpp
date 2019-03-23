@@ -56,7 +56,7 @@ void arc::Core::playMenu(gl::event_t event)
         }
     } else if (res.first == arc::MainMenu::SELECT_GAME) {
         _state = IN_GAME;
-        // _gameLoader.loadLib(res.second);
+        _gameLoader.loadLib(res.second);
     }
     _menu.display();
 }

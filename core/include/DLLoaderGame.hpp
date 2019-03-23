@@ -12,11 +12,14 @@
 #include <string>
 #include <dlfcn.h>
 #include "IGame.hpp"
+#include "DLLoaderLib.hpp"
 #include "Error.hpp"
 
 namespace arc {
-    template <class IGame>
-    class DLLoader {
+    template <class T> class DLLoader;
+
+    template <>
+    class DLLoader<game::IGame> {
     public:
         DLLoader() = default;
 

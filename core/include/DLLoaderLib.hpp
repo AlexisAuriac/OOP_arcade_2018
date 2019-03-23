@@ -15,8 +15,10 @@
 #include "Error.hpp"
 
 namespace arc {
-    template <class IGraphicLib>
-    class DLLoader {
+    template <class T> class DLLoader;
+
+    template <>
+    class DLLoader<gl::IGraphicLib> {
     public:
         DLLoader() = default;
 

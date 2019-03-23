@@ -18,6 +18,7 @@ units
 *.sublime-workspace
 
 # visual studio code
+.vscode
 *.code-workspace
 
 # JetBrains

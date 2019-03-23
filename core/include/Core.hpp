@@ -42,7 +42,7 @@ namespace arc {
         void getAssets();
         void init(const std::string &libName);
 
-        void handleEvent(gl::event_t event);
+        bool handleEvent(gl::event_t event);
         void alert(const std::string &str);
         void playMenu(gl::event_t event);
         void playGame(gl::event_t event);

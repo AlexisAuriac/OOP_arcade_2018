@@ -23,12 +23,17 @@ void arc::Core::handleArgumentErrors(
         throw arc::err::Argument();
 }
 
-void arc::Core::handleEvent(gl::event_t event)
+bool arc::Core::handleEvent(gl::event_t event)
 {
     switch (event) {
     case gl::Escape:
         _state = OVER;
-        break;
+        return true;
+    case gl::Num1:
+        _state = IN_MENU;
+        return true;
+    default:
+        return false;
     }
 }
 
@@ -82,7 +87,8 @@ void arc::Core::mainLoop()
     _menu.init(_gl, _gls, _games);
     while (_state != OVER) {
         event = _gl->getEvent();
-        handleEvent(event);
+        if (handleEvent(event))
+            continue;
         if (_state == IN_MENU)
             playMenu(event);
         else if (_state == IN_GAME)

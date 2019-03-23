@@ -25,7 +25,7 @@ namespace arc::game {
             void printSnake();
             void dirSnake(gl::event_t event);
             void moveSnake();
-            bool manageEvent(gl::event_t event);
+            void manageEvent(gl::event_t event);
             void drawMap();
             void manageHit();
             void posFruit(int flag);

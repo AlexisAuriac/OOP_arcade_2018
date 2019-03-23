@@ -52,8 +52,8 @@ void arc::game::Nibbler::drawMap()
 
 void arc::game::Nibbler::posFruit(int flag)
 {
-    int x = _tail[_tail.size()].first;
-    int y = _tail[_tail.size()].second;
+    int x = _tail.back().first;
+    int y = _tail.back().second;
 
     if (_tail.size() <= 3 && flag == 1) {
         _fruit.first = rand()%((_col - 4) - 4) + 4;
@@ -88,7 +88,8 @@ void arc::game::Nibbler::printScore()
 std::pair<arc::game::state, int> arc::game::Nibbler::play(gl::event_t event)
 {
     moveSnake();
-    if (!manageEvent(event))
+    manageEvent(event);
+    if (_run == 0)
         return std::make_pair(OVER, 0);
     return std::make_pair(PLAYING, 0);
 }
@@ -119,15 +120,12 @@ void arc::game::Nibbler::dirSnake(gl::event_t event)
     }
 }
 
-bool arc::game::Nibbler::manageEvent(gl::event_t event)
+void arc::game::Nibbler::manageEvent(gl::event_t event)
 {
     if (event == gl::Right)
         dirSnake(event);
     else if (event == gl::Left)
         dirSnake(event);
-    else if (event == gl::Escape)
-        return false;
-    return true;
 }
 
 void arc::game::Nibbler::manageHit()
@@ -145,7 +143,7 @@ void arc::game::Nibbler::manageHit()
     }
     if (_tail[0].first == _fruit.first
         && _tail[0].second == _fruit.second)
-        this->posFruit(2);
+        posFruit(2);
 }
 
 void arc::game::Nibbler::moveSnake()

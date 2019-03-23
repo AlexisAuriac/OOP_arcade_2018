@@ -22,14 +22,16 @@ namespace arc::game {
             void display() override;
 
         private:
-            void printSnake();
             void dirSnake(gl::event_t event);
             void moveSnake();
             void manageEvent(gl::event_t event);
-            void drawMap();
+
             void manageHit();
             void posFruit(int flag);
+
+            void drawMap();
             void printScore();
+            void printSnake();
 
         private:
             gl::IGraphicLib *_gl;

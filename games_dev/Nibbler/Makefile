@@ -7,7 +7,9 @@
 
 CXX         ?=  g++
 
-SRC         =   Nibbler.cpp\
+SRC         =   Nibbler.cpp			\
+				NibblerPlay.cpp		\
+				NibblerDisplay.cpp
 
 SRC         :=  $(addprefix src/, $(SRC))
 
@@ -16,8 +18,6 @@ OBJ         =   $(SRC:.cpp=.o)
 CPPFLAGS    +=  -I include -I ../../core/include
 
 CXXFLAGS    +=  -Wall -Wextra -fPIC
-
-LDFLAGS     +=  -lncurses
 
 NAME        =   ../../games/lib_arcade_nibbler.so
 

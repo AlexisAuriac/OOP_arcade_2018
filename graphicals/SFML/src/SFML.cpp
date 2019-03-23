@@ -32,12 +32,12 @@ event_key SFML::getEvent()
     }
 }
 
-int getCols()
+int SFML::getCols()
 {
     return size_window_width / size_block;
 }
 
-int getLine()
+int SFML::getLines()
 {
     return size_window_height /size_block;
     

@@ -10,51 +10,53 @@
 
 #include <iostream>
 #include <string>
-#include <list>
+#include <vector>
 #include "Error.hpp"
 #include "IGraphicLib.hpp"
 #include "DLLoaderLib.hpp"
+#include "MainMenu.hpp"
 
 namespace arc {
     static const int SUCCESS = 0;
     static const int FAILURE = 84;
 
-    static const char GAMES_DIR[] = "./games";
-    static const char GLS_DIR[] = "./graphicals";
+    static const char GAMES_DIR[] = "./games/";
+    static const char GLS_DIR[] = "./graphicals/";
 
     class Core {
+        typedef enum {
+            IN_MENU,
+            IN_GAME,
+            OVER
+        } states_t;
+
     public:
         ~Core();
 
         int run(int ac, char **av);
 
-
     private:
         void handleArgumentErrors(int ac, char **av);
 
-        void ReadLibDir(const char *dirName, std::list<std::string> &fList);
+        void readLibDir(const char *dirName, std::vector<std::string> &fList);
         void getAssets();
-        std::string trimPath(const std::string &libName) noexcept;
         void init(const std::string &libName);
 
-        void displayMenu(
-            const std::string &listName,
-            std::list<std::string> entries,
-            int col,
-            int curX,
-            int curY);
-        void mainMenu();
+        void handleEvent(gl::event_t event);
+        void mainLoop();
 
     private:
-        std::string _currGl;
+        MainMenu _menu;
+
+        states_t _state = IN_MENU;
 
         DLLoader<gl::IGraphicLib> _glLoader;
         gl::IGraphicLib *_gl = nullptr;
         // DLLoader<game::Igame> _gameLoader;
-        // game::IGame *_game;
+        // game::IGame *_game = nullptr;
 
-        std::list<std::string> _games;
-        std::list<std::string> _gls;
+        std::vector<std::string> _games;
+        std::vector<std::string> _gls;
     };
 }
 

@@ -11,7 +11,7 @@ SRC			=	main.cpp				\
 				Error.cpp				\
 				Core/Core.cpp			\
 				Core/CoreInit.cpp		\
-				Core/CoreMainMenu.cpp
+				MainMenu.cpp
 
 SRC			:=	$(addprefix src/, $(SRC))
 

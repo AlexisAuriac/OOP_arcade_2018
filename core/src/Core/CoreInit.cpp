@@ -7,19 +7,21 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <cstring>
 #include <cerrno>
-#include <dirent.h>
 #include <unistd.h>
+#include <dirent.h>
 #include "Core.hpp"
 #include "Error.hpp"
 
-void arc::Core::ReadLibDir(
+void arc::Core::readLibDir(
     const char *dirName,
-    std::list<std::string> &fList)
+    std::vector<std::string> &fList)
 {
     DIR *dir = opendir(dirName);
     struct dirent *file = nullptr;
+    std::string path(dirName);
 
     fList.clear();
     if (dir == nullptr)
@@ -30,25 +32,21 @@ void arc::Core::ReadLibDir(
             break;
         else if (file->d_name[0] == '.')
             continue;
-        fList.push_back(file->d_name);
+        std::string path = std::string(dirName);
+        fList.push_back(path + file->d_name);
     }
-    fList.sort();
+    sort(fList.begin(), fList.end());
     closedir(dir);
 }
 
 void arc::Core::getAssets()
 {
-    ReadLibDir(arc::GAMES_DIR, _games);
-    ReadLibDir(arc::GLS_DIR, _gls);
-}
-
-std::string arc::Core::trimPath(const std::string &libName) noexcept
-{
-    try {
-        return libName.substr(libName.rfind('/') + 1);
-    } catch (const std::out_of_range &e) {
-        return libName;
-    }
+    readLibDir(arc::GAMES_DIR, _games);
+    readLibDir(arc::GLS_DIR, _gls);
+    for (int i = 0 ; i < 40 ; ++i)
+        _gls.push_back(std::to_string(i));
+    for (int i = 0 ; i < 40 ; ++i)
+        _games.push_back(std::to_string(i));
 }
 
 void arc::Core::init(const std::string &libName)
@@ -56,5 +54,4 @@ void arc::Core::init(const std::string &libName)
     _glLoader.loadLib(libName.c_str());
     _gl = _glLoader.getInstance();
     getAssets();
-    _currGl = trimPath(libName);
 }

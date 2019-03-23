@@ -43,10 +43,6 @@ void arc::Core::getAssets()
 {
     readLibDir(arc::GAMES_DIR, _games);
     readLibDir(arc::GLS_DIR, _gls);
-    for (int i = 0 ; i < 40 ; ++i)
-        _gls.push_back(std::to_string(i));
-    for (int i = 0 ; i < 40 ; ++i)
-        _games.push_back(std::to_string(i));
 }
 
 void arc::Core::init(const std::string &libName)

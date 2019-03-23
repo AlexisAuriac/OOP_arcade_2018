@@ -44,6 +44,8 @@ namespace arc {
 
         void handleEvent(gl::event_t event);
         void alert(const std::string &str);
+        void playMenu(gl::event_t event);
+        void playGame(gl::event_t event);
         void mainLoop();
 
     private:

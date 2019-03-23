@@ -31,10 +31,16 @@ namespace arc {
             closeLib();
         }
 
+        bool isOpen(const std::string &path) {
+            if (dlopen(path.c_str(), RTLD_LAZY | RTLD_NOLOAD))
+                return true;
+            return false;
+        }
+
         void loadLib(const std::string &path) {
             void *newLib;
 
-            if (dlopen(path.c_str(), RTLD_LAZY | RTLD_NOLOAD))
+            if (isOpen(path))
                 throw arc::err::DLError(path + ": already open");
             newLib = dlopen(path.c_str(), RTLD_LAZY);
             if (newLib == nullptr)

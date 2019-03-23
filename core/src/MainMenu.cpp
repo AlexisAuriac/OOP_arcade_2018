@@ -55,7 +55,7 @@ arc::MainMenu::handleEvent(gl::event_t event)
         if (_pos.first == 0)
             return std::make_pair(SELECT_GL, _gls[_pos.second]);
         else if (_pos.first == 1)
-            return std::make_pair(SELECT_GAME, "");
+            return std::make_pair(SELECT_GAME, _games[_pos.second]);
     }
     return std::make_pair(NOTHING, "");
 }

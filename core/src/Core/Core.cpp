@@ -31,6 +31,7 @@ bool arc::Core::handleEvent(gl::event_t event)
         return true;
     case gl::Num1:
         _state = IN_MENU;
+        _gameLoader.closeLib();
         return true;
     default:
         return false;
@@ -56,7 +57,8 @@ void arc::Core::playMenu(gl::event_t event)
         }
     } else if (res.first == arc::MainMenu::SELECT_GAME) {
         _state = IN_GAME;
-        _gameLoader.loadLib(res.second);
+        if (!_gameLoader.isOpen(res.second))
+            _gameLoader.loadLib(res.second);
     }
     _menu.display();
 }

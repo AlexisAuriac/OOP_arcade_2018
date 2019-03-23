@@ -14,11 +14,19 @@
 int main()
 {
     SFML game;
+    textParams_t params;
+    color_t color = GREEN;
+
+    params.colorFg = GREEN;
+    params.colorBg = RED;
+    params.x = 350;
+    params.y = 350;
+
     game.openWindow();
-     game.clear();
-     //game.printText( "Menu", 50, 15);
-     game.display();
-     //game.drawSquare(3, 4);
+    game.clear();
+    game.printText("Menu", params);
+    game.drawSquare(200, 180, color);
+    game.display();
     while (game.getEvent() == Unknown) {}
     game.closeWindow();
 }

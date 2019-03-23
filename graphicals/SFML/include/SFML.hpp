@@ -186,37 +186,51 @@ static const std::unordered_map<sf::Keyboard::Key, event_key> event_tab = {
     {sf::Keyboard::F15, F15},
 };
 
+
+
 enum {
-        BLACK,
-        BLUE,
-        GREEN,
-        CYAN,
-        RED,
-        MAGENTA,
-        WHITE,
-        GRAY,
-        YELLOW,
-        NB_COLORS
-    };
+    BLACK,
+    BLUE,
+    GREEN,
+    CYAN,
+    RED,
+    MAGENTA,
+    WHITE,
+    GRAY,
+    YELLOW,
+    NB_COLORS
+};
 
-    typedef int color_t;
+const sf::Color CONNECT_COLORS[NB_COLORS] = {
+    [BLACK] = sf::Color::Black,
+    [BLUE] = sf::Color::Blue,
+    [GREEN] = sf::Color::Green,
+    [CYAN] = sf::Color::Cyan,
+    [RED] = sf::Color::Red,
+    [MAGENTA] = sf::Color::Magenta,
+    [WHITE] = sf::Color::White,
+    [GRAY] = sf::Color (127, 127, 127, 255),
+    [YELLOW] = sf::Color::Yellow,
+};
 
-    typedef struct textParams {
-        short x;
-        short y;
-        color_t colorFg : 4;
-        color_t colorBg : 4;
-        bool bold : 1;
+typedef int color_t;
 
-        textParams(
-            int x = 0,
-            int y = 0,
-            int fg = WHITE,
-            int bg = BLACK,
-            bool bold = false)
-        : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
-        {}
-    } textParams_t;
+typedef struct textParams {
+    short x;
+    short y;
+    color_t colorFg : 4;
+    color_t colorBg : 4;
+    bool bold : 1;
+
+    textParams(
+        int x = 0,
+        int y = 0,
+        int fg = WHITE,
+        int bg = BLACK,
+        bool bold = false)
+    : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
+    {}
+} textParams_t;
 
 // namespace arc::gl {
     // class SFML : public IGraphicLib {
@@ -236,7 +250,9 @@ enum {
 
     private:
         sf::RenderWindow _window;
-        
+        const int size_window_width = 700;
+        const int size_window_height = 60;
+        const int size_block = 20;
     };
 // }
 

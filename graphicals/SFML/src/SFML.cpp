@@ -12,7 +12,7 @@
 
 void SFML::openWindow()
 {
-    _window.create(sf::VideoMode(640, 480), "Arcade");
+    _window.create(sf::VideoMode(size_window_width, size_window_height), "Arcade");
 }
 
 event_key SFML::getEvent()
@@ -32,42 +32,46 @@ event_key SFML::getEvent()
     }
 }
 
-void arc::gl::Ncurses::printText(
-    const std::string &str,
-    const textParams_t &params)
+int getCols()
 {
-    int len = str.length();
-    int correctedCol;
-    int fg = CONNECT_COLORS[params.colorFg];
-    int bg = CONNECT_COLORS[params.colorBg];
-
-    if (params.x + len > COLS)
-        correctedCol = COLS - len;
-    else {
-        correctedCol = params.x - len / 2;
-        if (correctedCol < 0)
-            correctedCol = 0;
-    }
-    attron(COLOR_PAIR(fg * 16 + bg));
-    if (params.bold)
-        attron(A_BOLD);
-    else
-        attroff(A_BOLD);
-    mvprintw(params.y, correctedCol, str.c_str());
+    return size_window_width / size_block;
 }
 
-
-
-void SFML::printText(const std::string &str, int a, int b)
+int getLine()
 {
+    return size_window_height /size_block;
+    
+}
+ void SFML::drawSquare(int x, int y, color_t color)
+ {
+    sf::RectangleShape square(sf::Vector2f(60, 60));
+    sf::Color ncColor = CONNECT_COLORS[color];
+    square.setFillColor(ncColor);
+    square.setPosition(x, y);
+
+     _window.draw(square);
+ }
+
+void SFML::printText(
+    const std::string &str, 
+    const textParams_t &params)
+{
+    int correctedCol;
+    sf::Color fill = CONNECT_COLORS[params.colorFg];
+    sf::Color outline = CONNECT_COLORS[params.colorBg];
     sf::Font font;
     if (!font.loadFromFile("arial.ttf"))
         return;
     sf::Text text;
 
+    if (params.bold) {
+        text.setStyle(sf::Text::Bold);
+    }
     text.setFont(font);
     text.setString(str);
-    text.setPosition(a, b);
+    text.setFillColor(fill);
+    text.setOutlineColor(outline);
+    text.setPosition(params.x, params.y);
     _window.draw(text);
 }
 
@@ -85,15 +89,6 @@ void SFML::display()
 // {
 //     _window.draw()
 // }
-
-
-void arc::gl::Ncurses::drawSquare(int x, int y, arc::gl::color_t color)
-{
-    int ncColor = CONNECT_COLORS[color];
-
-    attron(COLOR_PAIR(ncColor * 16 + ncColor));
-    mvprintw(y, x, " ");
-}
 
 void SFML::closeWindow()
 {

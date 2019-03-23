@@ -5,7 +5,7 @@
 ## Makefile for games.
 ##
 
-GAMES=	NIBBLER\
+GAMES	=	Nibbler
 
 all: games
 

@@ -64,15 +64,18 @@ void arc::gl::SFML::printText(
 {
     sf::Color fill = CONNECT_COLORS[params.colorFg];
     sf::Color outline = CONNECT_COLORS[params.colorBg];
+    sf::FloatRect textRect;
 
     if (params.bold)
         _text.setStyle(sf::Text::Bold);
     else
         _text.setStyle(sf::Text::Regular);
     _text.setString(str);
+    textRect = _text.getLocalBounds();
+    _text.setPosition(params.x * BLOCK_SIZE, params.y * BLOCK_SIZE);
+    _text.move(sf::Vector2f(- textRect.width / 2, 0));
     _text.setFillColor(fill);
     _text.setOutlineColor(outline);
-    _text.setPosition(params.x * BLOCK_SIZE, params.y * BLOCK_SIZE);
     _window.draw(_text);
 }
 

@@ -25,7 +25,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CXX) -shared -o $(NAME) $(OBJ) $(LDFLAGS)
-	cp $(NAME) .
 
 clean:
 	$(RM) $(OBJ)

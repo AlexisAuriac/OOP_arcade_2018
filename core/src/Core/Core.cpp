@@ -39,7 +39,8 @@ bool arc::Core::handleEvent(gl::event_t event)
         _gameLoader.closeLib();
         return true;
     case gl::Num2:
-        _game->restart();
+        if (_state == IN_GAME)
+            _game->restart();
         return true;
     default:
         return false;

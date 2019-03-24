@@ -42,6 +42,11 @@ bool arc::Core::handleEvent(gl::event_t event)
         if (_state == IN_GAME)
             _game->restart();
         return true;
+    // case gl::Num3:
+    //     _glLoader.switchLib(_gls[0], _gl);
+    //     _gl->openWindow();
+    //     _menu.changeLib(_gl);
+    //     return true;
     default:
         return false;
     }
@@ -57,21 +62,16 @@ void arc::Core::alert(const std::string &str)
 void arc::Core::playMenu(gl::event_t event)
 {
     std::pair<arc::MainMenu::action, const std::string> res = _menu.handleEvent(event);
-    gl::IGraphicLib *newLib;
 
     if (res.first == arc::MainMenu::SELECT_GL) {
         if (_glLoader.isOpen(res.second))
             return;
         try {
-            _gl->closeWindow();
-            delete _gl;
-            _glLoader.loadLib(res.second);
-            newLib = _glLoader.getInstance();
+            _glLoader.switchLib(res.second, _gl);
         } catch (const arc::err::DLError &e) {
             alert(e.what());
             return;
         }
-        _gl = newLib;
         _gl->openWindow();
         _menu.changeLib(_gl);
     } else if (res.first == arc::MainMenu::SELECT_GAME) {

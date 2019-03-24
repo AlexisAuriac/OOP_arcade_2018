@@ -49,6 +49,23 @@ namespace arc {
             _lib = newLib;
         }
 
+        void switchLib(const std::string &path, gl::IGraphicLib *&inst) {
+            void *newLib;
+            gl::IGraphicLib *newInst;
+
+            if (isOpen(path))
+                throw arc::err::DLError(path + ": already open");
+            newLib = dlopen(path.c_str(), RTLD_LAZY);
+            if (newLib == nullptr)
+                throw arc::err::DLError(dlerror());
+            newInst = getInstance(newLib);
+            inst->closeWindow();
+            delete inst;
+            inst = newInst;
+            closeLib();
+            _lib = newLib;
+        }
+
         void closeLib() {
             if (_lib == nullptr)
                 return;
@@ -58,9 +75,13 @@ namespace arc {
         }
 
         gl::IGraphicLib *getInstance() {
+            return getInstance(_lib);
+        }
+
+        gl::IGraphicLib *getInstance(void *handle) {
             gl::IGraphicLib *(*entry)(void);
 
-            entry = (gl::IGraphicLib *(*)()) dlsym(_lib, gl::ENTRY_POINT_NAME);
+            entry = (gl::IGraphicLib *(*)()) dlsym(handle, gl::ENTRY_POINT_NAME);
             if (entry == nullptr)
                 throw arc::err::DLError(dlerror());
             try {

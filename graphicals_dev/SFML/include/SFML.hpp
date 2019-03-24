@@ -201,6 +201,12 @@ namespace arc::gl {
             [YELLOW] = sf::Color::Yellow,
         };
 
+        static const int WINDOW_WIDTH = 700;
+        static const int WINDOW_HEIGHT = 600;
+        static const int blockSize = 20;
+
+        const char *fontPath = "./assets/arial.ttf";
+
     public:
         void openWindow() override;
         event_key getEvent() override;
@@ -216,9 +222,6 @@ namespace arc::gl {
 
     private:
         sf::RenderWindow _window;
-        static const int windowWidth = 700;
-        static const int windowHeight = 60;
-        static const int blockSize = 20;
     };
 }
 

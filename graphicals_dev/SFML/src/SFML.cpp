@@ -12,7 +12,7 @@
 
 void arc::gl::SFML::openWindow()
 {
-    _window.create(sf::VideoMode(windowWidth, windowHeight), "Arcade");
+    _window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Arcade");
 }
 
 event_key arc::gl::SFML::getEvent()
@@ -34,12 +34,12 @@ event_key arc::gl::SFML::getEvent()
 
 int arc::gl::SFML::getCols()
 {
-    return windowWidth /  blockSize;
+    return WINDOW_WIDTH /  blockSize;
 }
 
 int arc::gl::SFML::getLines()
 {
-    return windowHeight / blockSize;
+    return WINDOW_HEIGHT / blockSize;
 
 }
  void arc::gl::SFML::drawSquare(int x, int y, color_t color)
@@ -61,7 +61,7 @@ void arc::gl::SFML::printText(
     sf::Font font;
     sf::Text text;
 
-    if (!font.loadFromFile(("arial.ttf"))) // TODO: test and throw
+    if (!font.loadFromFile(fontPath)) // TODO: test and throw
         return;
     if (params.bold)
         text.setStyle(sf::Text::Bold);

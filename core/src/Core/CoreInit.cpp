@@ -2,24 +2,26 @@
 ** EPITECH PROJECT, 2018
 ** arcade
 ** File description:
-** Intializes the Arcade object.
+** Intializes the Core object.
 */
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <cstring>
 #include <cerrno>
-#include <dirent.h>
 #include <unistd.h>
-#include "Arcade.hpp"
+#include <dirent.h>
+#include "Core.hpp"
 #include "Error.hpp"
 
-void arc::Arcade::ReadLibDir(
+void arc::Core::readLibDir(
     const char *dirName,
-    std::list<std::string> &fList)
+    std::vector<std::string> &fList)
 {
     DIR *dir = opendir(dirName);
     struct dirent *file = nullptr;
+    std::string path(dirName);
 
     fList.clear();
     if (dir == nullptr)
@@ -30,31 +32,22 @@ void arc::Arcade::ReadLibDir(
             break;
         else if (file->d_name[0] == '.')
             continue;
-        fList.push_back(file->d_name);
+        std::string path = std::string(dirName);
+        fList.push_back(path + file->d_name);
     }
-    fList.sort();
+    sort(fList.begin(), fList.end());
     closedir(dir);
 }
 
-void arc::Arcade::getAssets()
+void arc::Core::getAssets()
 {
-    ReadLibDir(arc::GAMES_DIR, _games);
-    ReadLibDir(arc::GLS_DIR, _gls);
+    readLibDir(arc::GAMES_DIR, _games);
+    readLibDir(arc::GLS_DIR, _gls);
 }
 
-std::string arc::Arcade::trimPath(const std::string &libName) noexcept
-{
-    try {
-        return libName.substr(libName.rfind('/') + 1);
-    } catch (const std::out_of_range &e) {
-        return libName;
-    }
-}
-
-void arc::Arcade::init(const std::string &libName)
+void arc::Core::init(const std::string &libName)
 {
     _glLoader.loadLib(libName.c_str());
     _gl = _glLoader.getInstance();
     getAssets();
-    _currGl = trimPath(libName);
 }

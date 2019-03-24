@@ -2,23 +2,24 @@
 ** EPITECH PROJECT, 2018
 ** arcade
 ** File description:
-** Defines the templated DLLoader class to load graphic libraries.
+** Defines the templated DLLoader class to load games libraries.
 */
 
-#ifndef DLLOADER_LIBS_HPP
-#define DLLOADER_LIBS_HPP
+#ifndef DLLOADER_GAMES_HPP
+#define DLLOADER_GAMES_HPP
 
 #include <iostream>
 #include <string>
 #include <dlfcn.h>
-#include "IGraphicLib.hpp"
+#include "IGame.hpp"
+#include "DLLoaderLib.hpp"
 #include "Error.hpp"
 
 namespace arc {
     template <class T> class DLLoader;
 
     template <>
-    class DLLoader<gl::IGraphicLib> {
+    class DLLoader<game::IGame> {
     public:
         DLLoader() = default;
 
@@ -49,23 +50,6 @@ namespace arc {
             _lib = newLib;
         }
 
-        void switchLib(const std::string &path, gl::IGraphicLib *&inst) {
-            void *newLib;
-            gl::IGraphicLib *newInst;
-
-            if (isOpen(path))
-                throw arc::err::DLError(path + ": already open");
-            newLib = dlopen(path.c_str(), RTLD_LAZY);
-            if (newLib == nullptr)
-                throw arc::err::DLError(dlerror());
-            newInst = getInstance(newLib);
-            inst->closeWindow();
-            delete inst;
-            inst = newInst;
-            closeLib();
-            _lib = newLib;
-        }
-
         void closeLib() {
             if (_lib == nullptr)
                 return;
@@ -74,14 +58,10 @@ namespace arc {
             _lib = nullptr;
         }
 
-        gl::IGraphicLib *getInstance() {
-            return getInstance(_lib);
-        }
+        game::IGame *getInstance() {
+            game::IGame *(*entry)(void);
 
-        gl::IGraphicLib *getInstance(void *handle) {
-            gl::IGraphicLib *(*entry)(void);
-
-            entry = (gl::IGraphicLib *(*)()) dlsym(handle, gl::ENTRY_POINT_NAME);
+            entry = (game::IGame *(*)()) dlsym(_lib, game::ENTRY_POINT_NAME);
             if (entry == nullptr)
                 throw arc::err::DLError(dlerror());
             try {

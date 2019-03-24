@@ -100,7 +100,7 @@ namespace arc::gl {
         KeyCount
     };
 
-    typedef int event_t;
+    using event_t = int;
 
     enum {
         BLACK,
@@ -115,39 +115,41 @@ namespace arc::gl {
         NB_COLORS
     };
 
-    typedef int color_t;
+    using color_t = int;
 
-    typedef struct textParams {
+    using textParams_t = struct textParams {
         short x;
         short y;
         color_t colorFg : 4;
         color_t colorBg : 4;
         bool bold : 1;
+        bool centered : 1;
 
         textParams(
             int x = 0,
             int y = 0,
             int fg = WHITE,
             int bg = BLACK,
-            bool bold = false)
-        : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
+            bool bold = false,
+            bool centered = false)
+        : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold), centered(centered)
         {}
-    } textParams_t;
+    };
 
     class IGraphicLib {
-        public:
-            virtual ~IGraphicLib() = default;
-            virtual void openWindow() = 0;
-            virtual void closeWindow() = 0;
-            virtual void display() = 0;
-            virtual void clear() = 0;
-            virtual int getCols() = 0;
-            virtual int getLines() = 0;
-            virtual void printText(
-                const std::string &str,
-                const textParams_t &params) = 0;
-            virtual event_t getEvent() = 0;
-            virtual void drawSquare(int x, int y, color_t color) = 0;
+    public:
+        virtual ~IGraphicLib() = default;
+        virtual void openWindow() = 0;
+        virtual void closeWindow() = 0;
+        virtual void display() = 0;
+        virtual void clear() = 0;
+        virtual int getCols() = 0;
+        virtual int getLines() = 0;
+        virtual void printText(
+            const std::string &str,
+            const textParams_t &params) = 0;
+        virtual event_t getEvent() = 0;
+        virtual void drawSquare(int x, int y, color_t color) = 0;
     };
 }
 

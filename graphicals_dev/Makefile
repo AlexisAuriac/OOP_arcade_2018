@@ -5,7 +5,8 @@
 ## Makefile for grapical libs.
 ##
 
-LIBS	=	ncurses
+LIBS	=	ncurses		\
+			SFML
 
 all: libs
 

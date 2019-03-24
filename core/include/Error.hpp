@@ -18,10 +18,10 @@ namespace arc::err {
     "DESCRIPTION\n"
     "\tlibrary\t\tdynamic linked graphic library";
 
-    class Arcade : public std::exception {
+    class Core : public std::exception {
     public:
-        Arcade(const std::string &msg);
-        Arcade(const std::string &msg, const std::string &type);
+        Core(const std::string &msg);
+        Core(const std::string &msg, const std::string &type);
 
         const char *what() const noexcept override;
 
@@ -29,20 +29,20 @@ namespace arc::err {
         const std::string _msg;
     };
 
-    class Argument : public Arcade {
+    class Argument : public Core {
     public:
         Argument();
         Argument(const std::string &msg);
     };
 
-    class Asset : public Arcade {
+    class Asset : public Core {
     public:
         Asset(const std::string &f, const std::string &dir, const std::string &err);
         Asset(const std::string &dir, const std::string &err);
         Asset(const std::string &err);
     };
 
-    class DLError : public Arcade {
+    class DLError : public Core {
     public:
         DLError(const std::string &msg);
     };

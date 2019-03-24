@@ -123,14 +123,16 @@ namespace arc::gl {
         color_t colorFg : 4;
         color_t colorBg : 4;
         bool bold : 1;
+        bool centered : 1;
 
         textParams(
             int x = 0,
             int y = 0,
             int fg = WHITE,
             int bg = BLACK,
-            bool bold = false)
-        : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
+            bool bold = false,
+            bool centered = false)
+        : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold), centered(centered)
         {}
     };
 

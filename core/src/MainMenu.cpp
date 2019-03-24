@@ -73,6 +73,7 @@ void arc::MainMenu::displayList(
     params.x = col;
     params.y = lines / 2 + (entries.size() / 2) - entries.size() - 1;
     params.bold = true;
+    params.centered = true;
     _gl->printText(listName, params);
     params.bold = false;
     for (const std::string &s : entries) {

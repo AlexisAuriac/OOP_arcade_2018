@@ -55,16 +55,18 @@ void arc::gl::Ncurses::printText(
     const textParams_t &params)
 {
     int len = str.length();
-    int correctedCol;
+    int correctedCol = params.x;
     int fg = CONNECT_COLORS[params.colorFg];
     int bg = CONNECT_COLORS[params.colorBg];
 
-    if (params.x + len > COLS)
-        correctedCol = COLS - len;
-    else {
-        correctedCol = params.x - len / 2;
-        if (correctedCol < 0)
-            correctedCol = 0;
+    if (params.centered) {
+        if (params.x + len > COLS)
+            correctedCol = COLS - len;
+        else {
+            correctedCol -= len / 2;
+            if (correctedCol < 0)
+                correctedCol = 0;
+        }
     }
     attron(COLOR_PAIR(fg * 16 + bg));
     if (params.bold)

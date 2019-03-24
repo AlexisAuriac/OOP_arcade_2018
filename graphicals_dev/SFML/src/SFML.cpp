@@ -74,7 +74,8 @@ void arc::gl::SFML::printText(
         _text.setStyle(sf::Text::Regular);
     _text.setString(str);
     textRect = _text.getLocalBounds();
-    pos.x -= textRect.width / 2;
+    if (params.centered)
+        pos.x -= textRect.width / 2;
     _text.setFillColor(fill);
     _text.setPosition(pos);
 

@@ -89,6 +89,7 @@ void arc::gl::SDL1::printText(
     SDL_Color fill = CONNECT_COLORS[params.colorFg];
     SDL_Color back = CONNECT_COLORS[params.colorBg];
     SDL_Rect position;
+    std::pair<int, int> textSize;
     SDL_Surface *text;
 
     if (params.bold)
@@ -102,6 +103,10 @@ void arc::gl::SDL1::printText(
         back);
     position.x = params.x * BLOCK_SIZE;
     position.y = params.y * BLOCK_SIZE;
+    if (params.centered) {
+        TTF_SizeText(_font, str.c_str(), &textSize.first, &textSize.second);
+        position.x -= textSize.first / 2;
+    }
     SDL_BlitSurface(text, nullptr, _screen, &position);
     SDL_FreeSurface(text);
 }

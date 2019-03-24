@@ -60,6 +60,8 @@ void arc::Core::playMenu(gl::event_t event)
     gl::IGraphicLib *newLib;
 
     if (res.first == arc::MainMenu::SELECT_GL) {
+        if (_glLoader.isOpen(res.second))
+            return;
         try {
             _gl->closeWindow();
             delete _gl;

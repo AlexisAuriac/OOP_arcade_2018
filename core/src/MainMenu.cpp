@@ -41,6 +41,7 @@ bool arc::MainMenu::HandleMove(gl::event_t event)
         return true;
     } else if (event == arc::gl::Left || event == arc::gl::Right) {
         _pos.first = (_pos.first == 0) ? 1 : 0;
+        _pos.second = 0;
         return true;
     }
     return false;

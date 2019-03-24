@@ -201,8 +201,8 @@ namespace arc::gl {
             [YELLOW] = sf::Color::Yellow,
         };
 
-        static const int WINDOW_WIDTH = 700;
-        static const int WINDOW_HEIGHT = 600;
+        static const int WINDOW_WIDTH = 1080;
+        static const int WINDOW_HEIGHT = 720;
         static const int BLOCK_SIZE = 20;
 
         const char *FONT_PATH = "./assets/arial.ttf";

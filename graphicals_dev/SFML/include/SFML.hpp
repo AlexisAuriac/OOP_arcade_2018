@@ -203,11 +203,12 @@ namespace arc::gl {
 
         static const int WINDOW_WIDTH = 700;
         static const int WINDOW_HEIGHT = 600;
-        static const int blockSize = 20;
+        static const int BLOCK_SIZE = 20;
 
-        const char *fontPath = "./assets/arial.ttf";
+        const char *FONT_PATH = "./assets/arial.ttf";
 
     public:
+        SFML();
         void openWindow() override;
         event_key getEvent() override;
         void clear() override;
@@ -222,6 +223,8 @@ namespace arc::gl {
 
     private:
         sf::RenderWindow _window;
+        sf::Font _font;
+        sf::Text _text;
     };
 }
 

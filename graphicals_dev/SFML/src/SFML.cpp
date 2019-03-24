@@ -10,6 +10,13 @@
 #include "IGraphicLib.hpp"
 #include "SFML.hpp"
 
+arc::gl::SFML::SFML()
+{
+    _font.loadFromFile(FONT_PATH); // TODO: test and throw
+    _text.setCharacterSize(BLOCK_SIZE);
+    _text.setFont(_font);
+}
+
 void arc::gl::SFML::openWindow()
 {
     _window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Arcade");
@@ -34,21 +41,20 @@ event_key arc::gl::SFML::getEvent()
 
 int arc::gl::SFML::getCols()
 {
-    return WINDOW_WIDTH /  blockSize;
+    return WINDOW_WIDTH / BLOCK_SIZE;
 }
 
 int arc::gl::SFML::getLines()
 {
-    return WINDOW_HEIGHT / blockSize;
+    return WINDOW_HEIGHT / BLOCK_SIZE;
 
 }
  void arc::gl::SFML::drawSquare(int x, int y, color_t color)
  {
-    sf::RectangleShape square(sf::Vector2f(60, 60));
-    sf::Color ncColor = CONNECT_COLORS[color];
-    square.setFillColor(ncColor);
-    square.setPosition(x, y);
+    sf::RectangleShape square(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE));
 
+    square.setFillColor(CONNECT_COLORS[color]);
+    square.setPosition(x, y);
      _window.draw(square);
  }
 
@@ -58,19 +64,16 @@ void arc::gl::SFML::printText(
 {
     sf::Color fill = CONNECT_COLORS[params.colorFg];
     sf::Color outline = CONNECT_COLORS[params.colorBg];
-    sf::Font font;
-    sf::Text text;
 
-    if (!font.loadFromFile(fontPath)) // TODO: test and throw
-        return;
     if (params.bold)
-        text.setStyle(sf::Text::Bold);
-    text.setFont(font);
-    text.setString(str);
-    text.setFillColor(fill);
-    text.setOutlineColor(outline);
-    text.setPosition(params.x, params.y);
-    _window.draw(text);
+        _text.setStyle(sf::Text::Bold);
+    else
+        _text.setStyle(sf::Text::Regular);
+    _text.setString(str);
+    _text.setFillColor(fill);
+    _text.setOutlineColor(outline);
+    _text.setPosition(params.x * BLOCK_SIZE, params.y * BLOCK_SIZE);
+    _window.draw(_text);
 }
 
 void arc::gl::SFML::clear()

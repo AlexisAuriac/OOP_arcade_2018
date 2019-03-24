@@ -17,7 +17,7 @@ CPPFLAGS	+=	-I include -I ../../core/include
 
 CXXFLAGS	+=	-Wall -Wextra -fPIC
 
-NAME		=	../lib_arcade_sfml.so
+NAME		=	../../graphicals/lib_arcade_sfml.so
 
 all: $(NAME)
 

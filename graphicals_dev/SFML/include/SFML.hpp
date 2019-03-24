@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** arcade
 ** File description:
-** Defines a graphical library for SDL2.
+** Defines a graphical library for ncurses.
 */
 
 #ifndef SFML_HPP
@@ -11,8 +11,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
-
-// #include "IGraphicLib.hpp"
+#include "IGraphicLib.hpp"
 
 enum {
     Unknown = -1,
@@ -187,73 +186,40 @@ static const std::unordered_map<sf::Keyboard::Key, event_key> event_tab = {
 };
 
 
-
-enum {
-    BLACK,
-    BLUE,
-    GREEN,
-    CYAN,
-    RED,
-    MAGENTA,
-    WHITE,
-    GRAY,
-    YELLOW,
-    NB_COLORS
-};
-
-const sf::Color CONNECT_COLORS[NB_COLORS] = {
-    [BLACK] = sf::Color::Black,
-    [BLUE] = sf::Color::Blue,
-    [GREEN] = sf::Color::Green,
-    [CYAN] = sf::Color::Cyan,
-    [RED] = sf::Color::Red,
-    [MAGENTA] = sf::Color::Magenta,
-    [WHITE] = sf::Color::White,
-    [GRAY] = sf::Color (127, 127, 127, 255),
-    [YELLOW] = sf::Color::Yellow,
-};
-
-typedef int color_t;
-
-typedef struct textParams {
-    short x;
-    short y;
-    color_t colorFg : 4;
-    color_t colorBg : 4;
-    bool bold : 1;
-
-    textParams(
-        int x = 0,
-        int y = 0,
-        int fg = WHITE,
-        int bg = BLACK,
-        bool bold = false)
-    : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
-    {}
-} textParams_t;
-
-// namespace arc::gl {
-    // class SFML : public IGraphicLib {
-    class SFML {
+namespace arc::gl {
+    class SFML : public IGraphicLib {
     public:
-        void openWindow();
-        event_key getEvent();
-        void clear();
-        void display();
-        int getCols();
-        int getLines();
+        const sf::Color CONNECT_COLORS[NB_COLORS] = {
+            [BLACK] = sf::Color::Black,
+            [BLUE] = sf::Color::Blue,
+            [GREEN] = sf::Color::Green,
+            [CYAN] = sf::Color::Cyan,
+            [RED] = sf::Color::Red,
+            [MAGENTA] = sf::Color::Magenta,
+            [WHITE] = sf::Color::White,
+            [GRAY] = sf::Color (127, 127, 127, 255),
+            [YELLOW] = sf::Color::Yellow,
+        };
+
+    public:
+        void openWindow() override;
+        event_key getEvent() override;
+        void clear() override;
+        void display() override;
+        int getCols() override;
+        int getLines() override;
         void printText(
             const std::string &str,
-            const textParams_t &params);
-        void drawSquare(int x, int y, color_t color);
-        void closeWindow();
+            const textParams_t &params) override;
+        void drawSquare(int x, int y, color_t color) override;
+        void closeWindow() override;
 
     private:
         sf::RenderWindow _window;
-        const int size_window_width = 700;
-        const int size_window_height = 60;
-        const int size_block = 20;
+        static const int windowWidth = 700;
+        static const int windowHeight = 60;
+        static const int blockSize = 20;
     };
-// }
+}
 
 #endif

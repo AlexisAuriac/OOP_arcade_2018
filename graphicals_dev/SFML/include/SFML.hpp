@@ -207,6 +207,8 @@ namespace arc::gl {
 
         const char *FONT_PATH = "./assets/arial.ttf";
 
+        static const int FRAME_RATE = 12;
+
     public:
         SFML();
         void openWindow() override;
@@ -225,6 +227,7 @@ namespace arc::gl {
         sf::RenderWindow _window;
         sf::Font _font;
         sf::Text _text;
+        sf::RectangleShape _rectShape;
     };
 }
 

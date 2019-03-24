@@ -20,6 +20,7 @@ arc::gl::SFML::SFML()
 void arc::gl::SFML::openWindow()
 {
     _window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Arcade");
+    _window.setFramerateLimit(FRAME_RATE);
 }
 
 event_key arc::gl::SFML::getEvent()
@@ -51,11 +52,11 @@ int arc::gl::SFML::getLines()
 }
  void arc::gl::SFML::drawSquare(int x, int y, color_t color)
  {
-    sf::RectangleShape square(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE));
+    _rectShape.setSize(sf::Vector2f(BLOCK_SIZE, BLOCK_SIZE));
 
-    square.setFillColor(CONNECT_COLORS[color]);
-    square.setPosition(x, y);
-     _window.draw(square);
+    _rectShape.setFillColor(CONNECT_COLORS[color]);
+    _rectShape.setPosition(x * BLOCK_SIZE, y * BLOCK_SIZE);
+     _window.draw(_rectShape);
  }
 
 void arc::gl::SFML::printText(
@@ -65,6 +66,7 @@ void arc::gl::SFML::printText(
     sf::Color fill = CONNECT_COLORS[params.colorFg];
     sf::Color outline = CONNECT_COLORS[params.colorBg];
     sf::FloatRect textRect;
+    sf::Vector2f pos(params.x * BLOCK_SIZE, params.y * BLOCK_SIZE);
 
     if (params.bold)
         _text.setStyle(sf::Text::Bold);
@@ -72,10 +74,15 @@ void arc::gl::SFML::printText(
         _text.setStyle(sf::Text::Regular);
     _text.setString(str);
     textRect = _text.getLocalBounds();
-    _text.setPosition(params.x * BLOCK_SIZE, params.y * BLOCK_SIZE);
-    _text.move(sf::Vector2f(- textRect.width / 2, 0));
+    pos.x -= textRect.width / 2;
     _text.setFillColor(fill);
-    _text.setOutlineColor(outline);
+    _text.setPosition(pos);
+
+    _rectShape.setSize(sf::Vector2f(textRect.width, textRect.height));
+    _rectShape.setFillColor(outline);
+    _rectShape.setPosition(pos);
+     _window.draw(_rectShape);
+
     _window.draw(_text);
 }
 

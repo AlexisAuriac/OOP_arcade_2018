@@ -87,3 +87,8 @@ void arc::gl::SFML::closeWindow()
 {
     _window.close();
 }
+
+extern "C" arc::gl::IGraphicLib *entryPoint()
+{
+    return new arc::gl::SFML();
+}

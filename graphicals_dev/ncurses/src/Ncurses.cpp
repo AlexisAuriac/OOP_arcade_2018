@@ -12,7 +12,6 @@
 
 void arc::gl::Ncurses::openWindow()
 {
-
     initscr();
     keypad(stdscr, TRUE);
     noecho();
@@ -22,6 +21,7 @@ void arc::gl::Ncurses::openWindow()
         for (int j = 0 ; j < 16 ; ++j)
             init_pair(i * 16 + j, i, j);
     }
+    std::cout << "openWindow" << std::endl;
 }
 
 void arc::gl::Ncurses::closeWindow()

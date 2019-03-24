@@ -28,14 +28,16 @@ void arc::MainMenu::changeLib(gl::IGraphicLib *gl)
 
 bool arc::MainMenu::HandleMove(gl::event_t event)
 {
+    std::vector<std::string> &currList = (_pos.first == 0) ? _gls : _games;
+
     if (event == arc::gl::Down) {
         ++_pos.second;
-        if (_pos.second > _gls.size() - 1)
+        if (_pos.second > currList.size() - 1)
             _pos.second = 0;
         return true;
     } else if (event == arc::gl::Up) {
         if (_pos.second == 0)
-            _pos.second = _gls.size() - 1;
+            _pos.second = currList.size() - 1;
         else
             --_pos.second;
         return true;

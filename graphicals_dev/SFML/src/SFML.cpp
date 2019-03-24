@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <cstring>
 #include <SFML/Window/Event.hpp>
 #include "IGraphicLib.hpp"
 #include "SFML.hpp"
@@ -23,17 +24,17 @@ void arc::gl::SFML::openWindow()
     _window.setFramerateLimit(FRAME_RATE);
 }
 
-event_key arc::gl::SFML::getEvent()
+arc::gl::event_t arc::gl::SFML::getEvent()
 {
     sf::Event event;
 
+    memset(&event, 0, sizeof(sf::Event));
     _window.pollEvent(event);
-
     if(event.type != sf::Event::KeyPressed) {
         return Unknown;
     } else {
         try {
-            return event_tab.at(event.key.code);
+            return CONNECT_EVENTS.at(event.key.code);
         } catch (const std::out_of_range &e) {
             return Unknown;
         }

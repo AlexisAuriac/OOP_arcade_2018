@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** arcade
 ** File description:
-** Defines a graphical library for SDL2.
+** Defines a graphical library for SDL1.
 */
 
 #ifndef SLD2_HPP
@@ -13,97 +13,13 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 #include <unordered_map>
-//#include "IGraphicLib.hpp"
+#include "IGraphicLib.hpp"
 
-enum {
-    Unknown = -1,
-    A = 0,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    H,
-    I,
-    J,
-    K,
-    L,
-    M,
-    N,
-    O,
-    P,
-    Q,
-    R,
-    S,
-    T,
-    U,
-    V,
-    W,
-    X,
-    Y,
-    Z,
-    Num0,
-    Num1,
-    Num2,
-    Num3,
-    Num4,
-    Num5,
-    Num6,
-    Num7,
-    Num8,
-    Num9,
-    Escape,
-    LBracket,
-    RBracket,
-    Semicolon,
-    Comma,
-    Period,
-    Quote,
-    Slash,
-    Backslash,
-    Tilde,
-    Equal,
-    Hyphen,
-    Space,
-    Enter,
-    Backspace,
-    Tab,
-    PageUp,
-    PageDown,
-    End,
-    Home,
-    Insert,
-    Delete,
-    Add,
-    Subtract,
-    Multiply,
-    Divide,
-    Left,
-    Right,
-    Up,
-    Down,
-    F1,
-    F2,
-    F3,
-    F4,
-    F5,
-    F6,
-    F7,
-    F8,
-    F9,
-    F10,
-    F11,
-    F12,
-    F13,
-    F14,
-    F15,
-    KeyCount,
-};
 
-typedef int event_key;
-
-static const std::unordered_map<int, event_key> event_tab = {
+namespace arc::gl {
+    class SDL1 : public IGraphicLib {
+    public:
+        const std::unordered_map<int, event_t> CONNECT_EVENTS = {
             {'A', A},
             {'B', B},
             {'C', C},
@@ -211,79 +127,47 @@ static const std::unordered_map<int, event_key> event_tab = {
             {SDLK_F13, F13},
             {SDLK_F14, F14},
             {SDLK_F15, F15}
-};
+        };
 
-enum {
-    BLACK,
-    BLUE,
-    GREEN,
-    CYAN,
-    RED,
-    MAGENTA,
-    WHITE,
-    GRAY,
-    YELLOW,
-    NB_COLORS
-};
+        const SDL_Color CONNECT_COLORS[NB_COLORS] = {
+            [BLACK] = SDL_Color {0, 0, 0, 0},
+            [BLUE] = SDL_Color {0xff, 0, 0, 0},
+            [GREEN] = SDL_Color {0, 0xff, 0, 0},
+            [CYAN] = SDL_Color {0xff, 0xff, 0x00, 0},
+            [RED] = SDL_Color {0, 0, 0xff, 0},
+            [MAGENTA] = SDL_Color {0xff, 0, 0xff, 0},
+            [WHITE] = SDL_Color {0xff, 0xff, 0xff, 0},
+            [GRAY] = SDL_Color {0x7f, 0x7f, 0x7f, 0},
+            [YELLOW] = SDL_Color {0, 0xff, 0xff, 0}
+        };
 
-const SDL_Color CONNECT_COLORS[NB_COLORS] = {
+        static const int WINDOW_WIDTH = 1080;
+        static const int WINDOW_HEIGHT = 720;
+        static const int BLOCK_SIZE = 20;
 
-    [BLACK] = SDL_Color {0, 0, 0},
-    [BLUE] = SDL_Color {0x14, 0xAD, 0xDB, 0x00},
-    [GREEN] = SDL_Color {0x2F, 0xB0, 0x04, 0x00},
-    [CYAN] = SDL_Color {52, 0, 13, 0},
-    [RED] = SDL_Color {0xFF, 0x00, 0x00, 0x00},
-    [MAGENTA] = SDL_Color {0, 100, 0, 0},
-    [WHITE] = SDL_Color {0xFF, 0xFF, 0xFF, 0x00},
-    [GRAY] = SDL_Color {127, 127, 127},
-    [YELLOW] = SDL_Color {0xFF, 0xFF, 0x00, 0x00},
+        const char *FONT_PATH = "./assets/arial.ttf";
 
-};
-
-
-typedef int color_t;
-
-typedef struct textParams {
-    short x;
-    short y;
-    color_t colorFg : 4;
-    color_t colorBg : 4;
-    bool bold : 1;
-
-    textParams(
-        int x = 0,
-        int y = 0,
-        int fg = WHITE,
-        int bg = BLACK,
-        bool bold = false)
-    : x(x), y(y), colorFg(fg), colorBg(bg), bold(bold)
-    {}
-} textParams_t;
-
-
-// namespace arc::gl {
-    // class SFML : public IGraphicLib {
-    class SDL {
     public:
-        void openWindow();
-        event_key getEvent();
-        void clear();
-        void display();
-        int getCols();
-        int getLines();
+        SDL1();
+        ~SDL1();
+        void openWindow() override;
+        event_t getEvent() override;
+        void clear() override;
+        void display() override;
+        int getCols() override;
+        int getLines() override;
         void printText(
             const std::string &str,
-            const textParams_t &params);
-        void drawSquare(int x, int y, color_t color);
-        void closeWindow();
+            const textParams_t &params) override;
+        void drawSquare(int x, int y, color_t color) override;
+        void closeWindow() override;
 
     private:
-        SDL_Surface *ecran = nullptr;
-        const int size_window_width = 700;
-        const int size_window_height = 550;
-        const int size_block = 20;
+        SDL_Surface *_screen = nullptr;
+        SDL_Surface *_square;
+        TTF_Font *_font;
     };
-// }
+}
 
 #endif
 

@@ -17,6 +17,8 @@ CPPFLAGS	+=	-I include -I ../../core/include
 
 CXXFLAGS	+=	-Wall -Wextra -fPIC
 
+LDFLAGS		+=	-lsfml-graphics -lsfml-window -lsfml-system
+
 NAME		=	../../graphicals/lib_arcade_sfml.so
 
 all: $(NAME)

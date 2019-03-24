@@ -15,11 +15,17 @@ int main()
 {
     SDL game;
     textParams_t params;
+    color_t color = GRAY;
+
+    params.colorFg = GREEN;
+    params.colorBg = RED;
+    params.x = 35;
+    params.y = 65;
 
     game.openWindow();
     //game.clear();
-    //game.printText("Menu", params);
-    //game.drawSquare(200, 180, color);
+    game.printText("MENUPPPPPP", params);
+    game.drawSquare(200, 180, color);
     //game.display();
     while (game.getEvent() == Unknown) {}
     game.closeWindow();

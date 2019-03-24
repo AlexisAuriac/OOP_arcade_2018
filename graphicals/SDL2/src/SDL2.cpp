@@ -7,13 +7,14 @@
 
 #include <iostream>
 #include "IGraphicLib.hpp"
+#include <SDL/SDL.h>
 #include "SDL2.hpp"
 
 void SDL::openWindow()
 {
     std::cout<< "ok" << std::endl;
     SDL_Init(SDL_INIT_VIDEO);
-    ecran = SDL_SetVideoMode(400, 300, 32, SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF);
+    ecran = SDL_SetVideoMode(size_window_width, size_window_height, 32, SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF);
     SDL_WM_SetCaption("Arcade", NULL);
 }
 
@@ -22,7 +23,7 @@ event_key SDL::getEvent()
     SDL_Event event;
     SDL_PollEvent(&event);
 
-    if (event.key.keysym.sym != SDL_KEYDOWN) {
+    if (event.type != SDL_KEYDOWN) {
         return Unknown;
     } else {
         try {
@@ -41,43 +42,49 @@ int SDL::getCols()
 int SDL::getLines()
 {
     return size_window_height /size_block;
-    
 }
- //void SDL::drawSquare(int x, int y, color_t color)
- //{
-     /*
-    sf::RectangleShape square(sf::Vector2f(60, 60));
-    sf::Color ncColor = CONNECT_COLORS[color];
-    square.setFillColor(ncColor);
-    square.setPosition(x, y);
 
-     _window.draw(square);
-     */
- //}
+Uint32 sdl_color_to_uint32(SDL_Color color)
+{
+    union {
+        SDL_Color color;
+        Uint32 uint;
+    } conv = {color};
+
+    return conv.uint;
+}
+
+void SDL::drawSquare(int x, int y, color_t color)
+ {
+    SDL_Surface *square = NULL;
+    square = SDL_CreateRGBSurface(SDL_HWSURFACE, 50, 50, 32, 0, 0, 0, 0);
+    SDL_Color ncColor = CONNECT_COLORS[color];
+    SDL_FillRect(square, NULL, sdl_color_to_uint32(ncColor));
+    SDL_Rect position;
+    position.x = (640 / 2) - (220 / 2);
+    position.y = (480 / 2) - (180 / 2);
+    SDL_BlitSurface(square, NULL, ecran, &position);
+    SDL_Flip(ecran);
+    SDL_FreeSurface(square);
+ }
 
 void SDL::printText(
     const std::string &str, 
     const textParams_t &params)
 {
-    /*
-    int correctedCol;
-    sf::Color fill = CONNECT_COLORS[params.colorFg];
-    sf::Color outline = CONNECT_COLORS[params.colorBg];
-    sf::Font font;
-    if (!font.loadFromFile("arial.ttf"))
-        return;
-    sf::Text text;
-
-    if (params.bold) {
-        text.setStyle(sf::Text::Bold);
-    }
-    text.setFont(font);
-    text.setString(str);
-    text.setFillColor(fill);
-    text.setOutlineColor(outline);
-    text.setPosition(params.x, params.y);
-    _window.draw(text);
-    */
+    TTF_Init();
+    SDL_Color fill = CONNECT_COLORS[params.colorFg];
+    SDL_Color outline = CONNECT_COLORS[params.colorBg];
+    SDL_Rect position;
+    TTF_Font *police = TTF_OpenFont("arial.ttf", 22);
+    SDL_Surface *texte = TTF_RenderText_Blended(police, str.c_str(), fill);
+    position.x = params.x;
+    position.y = params.y;
+    SDL_BlitSurface(texte, NULL, ecran, &position);
+    SDL_Flip(ecran);
+    TTF_CloseFont(police);
+    TTF_Quit();
+    SDL_FreeSurface(texte);
 }
 
 void SDL::clear()

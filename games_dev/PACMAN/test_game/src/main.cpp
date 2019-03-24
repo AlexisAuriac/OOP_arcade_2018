@@ -9,7 +9,7 @@ int main(int ac, char **av)
     arc::gl::IGraphicLib *gl = loader.getInstance();
     Pacman t;
 
-    t.init(gl);
+    t.init();
     gl->openWindow();
     t.gameRun(gl);
     gl->closeWindow();

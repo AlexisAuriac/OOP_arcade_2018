@@ -89,12 +89,17 @@ void arc::gl::SDL1::printText(
     SDL_Color fill = CONNECT_COLORS[params.colorFg];
     SDL_Color back = CONNECT_COLORS[params.colorBg];
     SDL_Rect position;
-    SDL_Surface *text = TTF_RenderText_Shaded(
+    SDL_Surface *text;
+
+    if (params.bold)
+        TTF_SetFontStyle(_font, TTF_STYLE_BOLD);
+    else
+        TTF_SetFontStyle(_font, TTF_STYLE_NORMAL);
+    text = TTF_RenderText_Shaded(
         _font,
         str.c_str(),
         fill,
         back);
-
     position.x = params.x * BLOCK_SIZE;
     position.y = params.y * BLOCK_SIZE;
     SDL_BlitSurface(text, nullptr, _screen, &position);

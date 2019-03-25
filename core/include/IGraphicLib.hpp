@@ -115,7 +115,7 @@ namespace arc::gl {
         NB_COLORS
     };
 
-    using color_t = int;
+    using color_t = unsigned int;
 
     using textParams_t = struct textParams {
         short x;

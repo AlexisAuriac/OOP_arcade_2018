@@ -95,7 +95,7 @@ namespace arc::gl {
             {'=', Equal},
             {'-', Hyphen},
             {' ', Space},
-            {'\n', Enter},
+            {SDLK_RETURN, Enter},
             {SDLK_BACKSLASH, Backspace},
             {'\t', Tab},
             {SDLK_PAGEUP, PageUp},

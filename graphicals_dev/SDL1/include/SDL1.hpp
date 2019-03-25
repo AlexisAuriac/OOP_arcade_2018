@@ -129,16 +129,28 @@ namespace arc::gl {
             {SDLK_F15, F15}
         };
 
-        const SDL_Color CONNECT_COLORS[NB_COLORS] = {
+        const SDL_Color CONNECT_SDL_COLORS[NB_COLORS] = {
             [BLACK] = SDL_Color {0, 0, 0, 0},
-            [BLUE] = SDL_Color {0xff, 0, 0, 0},
+            [BLUE] = SDL_Color {0, 0, 0xff, 0},
             [GREEN] = SDL_Color {0, 0xff, 0, 0},
-            [CYAN] = SDL_Color {0xff, 0xff, 0x00, 0},
-            [RED] = SDL_Color {0, 0, 0xff, 0},
+            [CYAN] = SDL_Color {0x00, 0xff, 0xff, 0},
+            [RED] = SDL_Color {0xff, 0, 0, 0},
             [MAGENTA] = SDL_Color {0xff, 0, 0xff, 0},
             [WHITE] = SDL_Color {0xff, 0xff, 0xff, 0},
             [GRAY] = SDL_Color {0x7f, 0x7f, 0x7f, 0},
-            [YELLOW] = SDL_Color {0, 0xff, 0xff, 0}
+            [YELLOW] = SDL_Color {0xff, 0xff, 0, 0}
+        };
+
+        const Uint32 CONNECT_UINT_COLORS[NB_COLORS] = {
+            [BLACK] = 0x00000000,
+            [BLUE] = 0x000000ff,
+            [GREEN] = 0x0000ff00,
+            [CYAN] = 0x0000ffff,
+            [RED] = 0x00ff0000,
+            [MAGENTA] = 0x00ff00ff,
+            [WHITE] = 0x00ffffff,
+            [GRAY] = 0x007f7f7f,
+            [YELLOW] = 0x00ffff00
         };
 
         static const int WINDOW_WIDTH = 1080;

@@ -72,11 +72,10 @@ int arc::gl::SDL1::getLines()
 
 void arc::gl::SDL1::drawSquare(int x, int y, arc::gl::color_t color)
  {
-    SDL_Color ncColor = CONNECT_COLORS[color];
+    Uint32 ncColor = CONNECT_UINT_COLORS[color];
     SDL_Rect position;
-    union {SDL_Color color; Uint32 uint;} conv = {ncColor};
 
-    SDL_FillRect(_square, nullptr, conv.uint);
+    SDL_FillRect(_square, nullptr, ncColor);
     position.x = x * BLOCK_SIZE;
     position.y = y * BLOCK_SIZE;
     SDL_BlitSurface(_square, nullptr, _screen, &position);
@@ -86,8 +85,8 @@ void arc::gl::SDL1::printText(
     const std::string &str,
     const textParams_t &params)
 {
-    SDL_Color fill = CONNECT_COLORS[params.colorFg];
-    SDL_Color back = CONNECT_COLORS[params.colorBg];
+    SDL_Color fill = CONNECT_SDL_COLORS[params.colorFg];
+    SDL_Color back = CONNECT_SDL_COLORS[params.colorBg];
     SDL_Rect position;
     std::pair<int, int> textSize;
     SDL_Surface *text;

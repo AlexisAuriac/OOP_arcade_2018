@@ -14,32 +14,45 @@
 
 class Pacman
 {
-    private:
-        // Ghost
-        char _saveC;
-        // Pacman
-        int _run;
-        arc::gl::event_t _sEvent;
-        std::pair <int, int> _posM;
-        std::pair <int, int> _posP;
+    private:// Ghost
+        arc::gl::event_t _sMov;
+        std::vector< std::pair <int, int> > _PosG;
+        std::pair<int, int> _door;
+    
+    private:// Perso
+        arc::gl::event_t _eventP;
+        std::pair <int, int> _Pos;
         std::pair <int, int> _sDir;
-        std::vector< std::pair <int, int> > _posG;
+    
+    private:// Map
+        arc::gl::event_t _event;
+        std::pair <int, int> _posM;
         std::vector<std::string> _map;
-    // private:
-    public:
+
+    
+
+    public:// Map
         Pacman();
         bool init();
-        bool checkGhost();
-        void nb_dir(int i);
-        void checkGDir(arc::gl::event_t event, int i);
-        void movGhost(arc::gl::IGraphicLib *gl);
-        void movGdir(std::pair<int, int> dir, arc::gl::event_t event, int i);
-        void movGdir2(std::pair<int, int> dir, arc::gl::event_t event, int i);
         void gameRun(arc::gl::IGraphicLib *gl);
-        bool managEvent(arc::gl::IGraphicLib *gl);
-        void movPerso(std::pair <int, int> dir, arc::gl::event_t event);
         void drawMap(arc::gl::IGraphicLib *gl);
+        void drawScore(arc::gl::IGraphicLib *gl);
+    
+    public:// Perso
+        void drawPerso(arc::gl::IGraphicLib *gl);
+        void managEvent();
+        bool checkGhost();
         void checkMov(std::pair <int, int> dir, arc::gl::event_t event);
+        void movPerso(std::pair <int, int> dir, arc::gl::event_t event);
+    
+    public:// Ghost
+        void drawGhost(arc::gl::IGraphicLib *gl);
+        void movGhost(int i);
+        void checkGDir(int i);
+        void chooseDir(int i, std::vector<arc::gl::event_t> nb_event);
+        void porGDir(int i, std::vector<arc::gl::event_t> nb_event);
+        void managGDir(arc::gl::event_t event, int i);
+        void addPos(int i, std::pair<int, int> dir);
 };
 
 #endif

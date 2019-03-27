@@ -6,10 +6,10 @@ X.................X
 X.XX.X.XXXXX.X.XX.X
 X....X...X...X....X
 XXXX.XXX.X.XXX.XXXX
-XXXX.X...G...X.XXXX
-XXXX.X.XXGXX.X.XXXX
-XX.....X8G8X.....XX
-...X...X8G8X...X...
+XXXX.X.......X.XXXX
+XXXX.X.XX-XX.X.XXXX
+XX.....XGGGX.....XX
+...X...X G X...X...
 XXXX.X.XXXXX.X.XXXX
 XXXX.X.......X.XXXX
 XXXX.XXX.X.XXX.XXXX

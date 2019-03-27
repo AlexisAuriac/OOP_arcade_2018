@@ -8,7 +8,10 @@
 CXX         ?=  g++
 
 SRC         =   main.cpp\
-                Pacman.cpp
+                Pacman.cpp\
+                drawMap.cpp\
+                Perso.cpp\
+                Ghost.cpp
 
 SRC         :=  $(addprefix src/, $(SRC)) ../../../core/src/Error.cpp
 

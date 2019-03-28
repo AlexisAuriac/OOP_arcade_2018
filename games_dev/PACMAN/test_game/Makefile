@@ -19,7 +19,7 @@ OBJ         =   $(SRC:.cpp=.o)
 
 CPPFLAGS    +=  -I include -I ../../../core/include
 
-CXXFLAGS    +=  -Wall -Wextra
+CXXFLAGS    +=  -Wall -Wextra -g3
 
 LDFLAGS		+=	-ldl
 

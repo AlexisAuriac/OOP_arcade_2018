@@ -10,10 +10,11 @@
 void Pacman::drawScore(arc::gl::IGraphicLib *gl)
 {
     arc::gl::textParams_t param;
+    std::string score = "Score: ";
 
     param.x = 0;
     param.y = 0;
-    gl->printText("Score: ", param);
+    gl->printText(score + std::to_string(_score), param);
 }
 
 void Pacman::drawMap(arc::gl::IGraphicLib *gl)

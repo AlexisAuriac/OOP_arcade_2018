@@ -17,17 +17,23 @@ void Pacman::drawPerso(arc::gl::IGraphicLib *gl)
 void Pacman::movPerso(std::pair <int, int> dir, arc::gl::event_t event)
 {
     if (event == arc::gl::Right || event == arc::gl::Left) {
-        if (_map[_Pos.second][_Pos.first + dir.second] != 'X'
-            && _map[_Pos.second][_Pos.first + dir.second] != '-') {
+        if (this->checkPos(_Pos.second, _Pos.first + dir.second) != false) {
             _sDir = dir;
             _eventP = event;
+            if (_map[_Pos.second][_Pos.first] == '.')
+                _score += 100;
+            if (_map[_Pos.second][_Pos.first] == '*')
+                _score += 200;
             _map[_Pos.second][_Pos.first] = ' ';
             _Pos.first += dir.second;
             _map[_Pos.second][_Pos.first] = 'C';            
         }
     } else {
-        if (_map[_Pos.second + dir.first][_Pos.first] != 'X'
-            && _map[_Pos.second + dir.first][_Pos.first] != '-') {
+        if (this->checkPos(_Pos.second + dir.first, _Pos.first) != false) {
+            if (_map[_Pos.second][_Pos.first] == '.')
+                _score += 100;
+            if (_map[_Pos.second][_Pos.first] == '*')
+                _score += 200;
             _map[_Pos.second][_Pos.first] = ' ';
             _sDir = dir;
             _eventP = event;
@@ -48,13 +54,9 @@ bool Pacman::checkGhost()
 
 void Pacman::checkMov(std::pair <int, int> dir, arc::gl::event_t event)
 {
-    if (_Pos.first > 0 && _Pos.first < (_posM.first - 1)) {
-        if (this->checkGhost() == false){
-            _event = arc::gl::Escape;
-            return;
-        }
+    if (_Pos.first > 0 && _Pos.first < (_posM.first - 1))
         movPerso(dir, event);
-    } else {
+    else {
         _map[_Pos.second][_Pos.first] = ' ';
         if (_Pos.first <= 0) {
             _map[_Pos.second][_posM.first - 1] = ' ';
@@ -65,6 +67,8 @@ void Pacman::checkMov(std::pair <int, int> dir, arc::gl::event_t event)
         }
         _map[_Pos.second][_Pos.first] = 'C';
     }
+    if (this->checkGhost() == false)
+        _event = arc::gl::Escape;
 }
 
 void Pacman::managEvent()

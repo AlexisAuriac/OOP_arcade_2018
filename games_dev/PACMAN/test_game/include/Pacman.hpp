@@ -15,7 +15,8 @@
 class Pacman
 {
     private:// Ghost
-        arc::gl::event_t _sMov;
+        int _time;
+        std::vector<arc::gl::event_t> _sMov;
         std::vector< std::pair <int, int> > _PosG;
         std::pair<int, int> _door;
     
@@ -28,12 +29,13 @@ class Pacman
         arc::gl::event_t _event;
         std::pair <int, int> _posM;
         std::vector<std::string> _map;
+        int _score;
 
-    
 
     public:// Map
         Pacman();
         bool init();
+        void my_time();
         void gameRun(arc::gl::IGraphicLib *gl);
         void drawMap(arc::gl::IGraphicLib *gl);
         void drawScore(arc::gl::IGraphicLib *gl);
@@ -49,6 +51,7 @@ class Pacman
         void drawGhost(arc::gl::IGraphicLib *gl);
         void movGhost(int i);
         void checkGDir(int i);
+        bool checkPos(int x, int y);
         void chooseDir(int i, std::vector<arc::gl::event_t> nb_event);
         void porGDir(int i, std::vector<arc::gl::event_t> nb_event);
         void managGDir(arc::gl::event_t event, int i);

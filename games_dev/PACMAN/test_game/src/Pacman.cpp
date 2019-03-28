@@ -22,6 +22,8 @@ Pacman::Pacman()
         while (getline(myflux, line))
             _map.push_back(line);
     }
+    _time = 0;
+    _score = 0;
     _sDir.first = 0;
     _sDir.second = 0;
     _eventP = arc::gl::Down;
@@ -37,18 +39,24 @@ bool Pacman::init()
     return true;
 }
 
+void Pacman::my_time()
+{
+    usleep(165000);
+    _time++;
+}
+
 void Pacman::gameRun(arc::gl::IGraphicLib *gl)
 {
     srand(time(NULL));
  
     while (_event != arc::gl::Escape) {
-        gl->clear();
         _event = gl->getEvent();
+        gl->clear();
         this->drawMap(gl);
         this->drawGhost(gl);
         this->drawPerso(gl);
         this->drawScore(gl);
         gl->display();
-        usleep(175000);
+        this->my_time();
     }
 }

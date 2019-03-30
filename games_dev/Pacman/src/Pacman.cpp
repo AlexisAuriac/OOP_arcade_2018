@@ -8,18 +8,19 @@
 #include <iostream>
 #include <unistd.h>
 #include <fstream>
+#include "IGraphicLib.hpp"
 #include "Pacman.hpp"
 
 Pacman::Pacman()
 {
     std::string line;
-    std::ifstream myflux("Pac_map/map1.txt");
+    std::ifstream mapFile("Pac_map/map1.txt");
 
-    if (!myflux) {
+    if (!mapFile) {
         std::cerr << "Error file" << std::endl;
         _map.push_back("NOP");
     } else {
-        while (getline(myflux, line))
+        while (getline(mapFile, line))
             _map.push_back(line);
     }
     _time = 0;
@@ -30,33 +31,31 @@ Pacman::Pacman()
     _event = arc::gl::Unknown;
 }
 
-bool Pacman::init()
+void Pacman::init(arc::gl::IGraphicLib *gl)
 {
+    _gl = gl;
     if (_map[0] == "NOP")
-        return false;
+        return;
     _posM.first = atoi(_map[0].c_str());
     _posM.second = atoi((_map[0].erase(0, _map[0].find(',') + 1)).c_str());
-    return true;
 }
 
-void Pacman::my_time()
+void Pacman::waitTurn()
 {
     usleep(165000);
-    _time++;
+    ++_time;
 }
 
-void Pacman::gameRun(arc::gl::IGraphicLib *gl)
+void Pacman::gameRun()
 {
-    srand(time(NULL));
- 
     while (_event != arc::gl::Escape) {
-        _event = gl->getEvent();
-        gl->clear();
-        this->drawMap(gl);
-        this->drawGhost(gl);
-        this->drawPerso(gl);
-        this->drawScore(gl);
-        gl->display();
-        this->my_time();
+        _event = _gl->getEvent();
+        _gl->clear();
+        drawMap();
+        drawGhost();
+        drawPerso();
+        drawScore();
+        _gl->display();
+        waitTurn();
     }
 }

@@ -8,81 +8,81 @@
 #include <unistd.h>
 #include "Pacman.hpp"
 
-void Pacman::drawPerso(arc::gl::IGraphicLib *gl)
+void Pacman::drawPerso()
 {
-    this->managEvent();
-    gl->drawSquare(_Pos.first, _Pos.second, arc::gl::YELLOW);
+    manageEvent();
+    _gl->drawSquare(_pos.first, _pos.second, arc::gl::YELLOW);
 }
 
 void Pacman::movPerso(std::pair <int, int> dir, arc::gl::event_t event)
 {
     if (event == arc::gl::Right || event == arc::gl::Left) {
-        if (this->checkPos(_Pos.second, _Pos.first + dir.second) != false) {
+        if (checkPos(_pos.second, _pos.first + dir.second) != false) {
             _sDir = dir;
             _eventP = event;
-            if (_map[_Pos.second][_Pos.first] == '.')
+            if (_map[_pos.second][_pos.first] == '.')
                 _score += 100;
-            if (_map[_Pos.second][_Pos.first] == '*')
+            if (_map[_pos.second][_pos.first] == '*')
                 _score += 200;
-            _map[_Pos.second][_Pos.first] = ' ';
-            _Pos.first += dir.second;
-            _map[_Pos.second][_Pos.first] = 'C';            
+            _map[_pos.second][_pos.first] = ' ';
+            _pos.first += dir.second;
+            _map[_pos.second][_pos.first] = 'C';
         }
     } else {
-        if (this->checkPos(_Pos.second + dir.first, _Pos.first) != false) {
-            if (_map[_Pos.second][_Pos.first] == '.')
+        if (checkPos(_pos.second + dir.first, _pos.first) != false) {
+            if (_map[_pos.second][_pos.first] == '.')
                 _score += 100;
-            if (_map[_Pos.second][_Pos.first] == '*')
+            if (_map[_pos.second][_pos.first] == '*')
                 _score += 200;
-            _map[_Pos.second][_Pos.first] = ' ';
+            _map[_pos.second][_pos.first] = ' ';
             _sDir = dir;
             _eventP = event;
-            _Pos.second += dir.first;
-            _map[_Pos.second][_Pos.first] = 'C';
+            _pos.second += dir.first;
+            _map[_pos.second][_pos.first] = 'C';
         }
     }
 }
 
 bool Pacman::checkGhost()
 {
-    for (int i = 0; i < 4; i++) {
-        if (_Pos == _PosG[i])
+    for (int i = 0 ; i < 4 ; ++i) {
+        if (_pos == _posG[i])
             return false;
     }
     return true;
 }
 
-void Pacman::checkMov(std::pair <int, int> dir, arc::gl::event_t event)
+void Pacman::checkMove(std::pair <int, int> dir, arc::gl::event_t event)
 {
-    if (_Pos.first > 0 && _Pos.first < (_posM.first - 1))
+    if (_pos.first > 0 && _pos.first < (_posM.first - 1))
         movPerso(dir, event);
     else {
-        _map[_Pos.second][_Pos.first] = ' ';
-        if (_Pos.first <= 0) {
-            _map[_Pos.second][_posM.first - 1] = ' ';
-            _Pos.first = _posM.first - 2;
-        } else if (_Pos.first >= _posM.first - 1) {
-            _map[_Pos.second][0] = ' ';
-            _Pos.first = 1;
+        _map[_pos.second][_pos.first] = ' ';
+        if (_pos.first <= 0) {
+            _map[_pos.second][_posM.first - 1] = ' ';
+            _pos.first = _posM.first - 2;
+        } else if (_pos.first >= _posM.first - 1) {
+            _map[_pos.second][0] = ' ';
+            _pos.first = 1;
         }
-        _map[_Pos.second][_Pos.first] = 'C';
+        _map[_pos.second][_pos.first] = 'C';
     }
-    if (this->checkGhost() == false)
+    if (checkGhost() == false)
         _event = arc::gl::Escape;
 }
 
-void Pacman::managEvent()
+void Pacman::manageEvent()
 {
     if (_event == arc::gl::Escape)
         return;
     else if (_event == arc::gl::Left)
-        this->checkMov({0, -1}, arc::gl::Left);
+        checkMove({0, -1}, arc::gl::Left);
     else if (_event == arc::gl::Right)
-        this->checkMov({0, 1}, arc::gl::Right);
+        checkMove({0, 1}, arc::gl::Right);
     else if (_event == arc::gl::Up)
-        this->checkMov({-1, 0}, arc::gl::Up);
+        checkMove({-1, 0}, arc::gl::Up);
     else if (_event == arc::gl::Down)
-        this->checkMov({1, 0}, arc::gl::Down);
+        checkMove({1, 0}, arc::gl::Down);
     else if (_event == arc::gl::Unknown)
-        this->checkMov(_sDir, _eventP);
+        checkMove(_sDir, _eventP);
 }

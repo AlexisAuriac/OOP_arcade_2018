@@ -13,47 +13,48 @@
 #include "IGraphicLib.hpp"
 
 class Pacman {
-    public:// Map
-        Pacman();
-        bool init();
-        void my_time();
-        void gameRun(arc::gl::IGraphicLib *gl);
-        void drawMap(arc::gl::IGraphicLib *gl);
-        void drawScore(arc::gl::IGraphicLib *gl);
+public:// Map
+    Pacman();
+    void init(arc::gl::IGraphicLib *gl);
+    void waitTurn();
+    void gameRun();
+    void drawMap();
+    void drawScore();
 
-    public:// Perso
-        void drawPerso(arc::gl::IGraphicLib *gl);
-        void managEvent();
-        bool checkGhost();
-        void checkMov(std::pair <int, int> dir, arc::gl::event_t event);
-        void movPerso(std::pair <int, int> dir, arc::gl::event_t event);
+public:// Perso
+    void drawPerso();
+    void manageEvent();
+    bool checkGhost();
+    void checkMove(std::pair<int, int> dir, arc::gl::event_t event);
+    void movPerso(std::pair<int, int> dir, arc::gl::event_t event);
 
-    public:// Ghost
-        void drawGhost(arc::gl::IGraphicLib *gl);
-        void movGhost(int i);
-        void checkGDir(int i);
-        bool checkPos(int x, int y);
-        void chooseDir(int i, std::vector<arc::gl::event_t> nb_event);
-        void porGDir(int i, std::vector<arc::gl::event_t> nb_event);
-        void managGDir(arc::gl::event_t event, int i);
-        void addPos(int i, std::pair<int, int> dir);
+public:// Ghost
+    void drawGhost();
+    void moveGhost(int i);
+    void checkGDir(int i);
+    bool checkPos(int x, int y);
+    void chooseDir(int i, std::vector<arc::gl::event_t> nb_event);
+    void porGDir(int i, std::vector<arc::gl::event_t> nb_event);
+    void manageGDir(arc::gl::event_t event, int i);
+    void addPos(int i, std::pair<int, int> dir);
 
-    private:// Ghost
-        int _time;
-        std::vector<arc::gl::event_t> _sMov;
-        std::vector< std::pair <int, int> > _PosG;
-        std::pair<int, int> _door;
+private:// Ghost
+    int _time;
+    std::vector<arc::gl::event_t> _sMov;
+    std::vector<std::pair<int, int>> _posG;
+    std::pair<int, int> _door;
 
-    private:// Perso
-        arc::gl::event_t _eventP;
-        std::pair <int, int> _Pos;
-        std::pair <int, int> _sDir;
+private:// Perso
+    arc::gl::event_t _eventP;
+    std::pair<int, int> _pos;
+    std::pair<int, int> _sDir;
 
-    private:// Map
-        arc::gl::event_t _event;
-        std::pair <int, int> _posM;
-        std::vector<std::string> _map;
-        int _score;
+private:// Map
+    arc::gl::IGraphicLib *_gl;
+    arc::gl::event_t _event;
+    std::pair<int, int> _posM;
+    std::vector<std::string> _map;
+    int _score;
 };
 
 #endif

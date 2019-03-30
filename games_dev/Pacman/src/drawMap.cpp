@@ -7,33 +7,32 @@
 
 #include "Pacman.hpp"
 
-void Pacman::drawScore(arc::gl::IGraphicLib *gl)
+void Pacman::drawScore()
 {
-    arc::gl::textParams_t param;
+    arc::gl::textParams_t params;
     std::string score = "Score: ";
 
-    param.x = 0;
-    param.y = 0;
-    gl->printText(score + std::to_string(_score), param);
+    params.x = 0;
+    params.y = 0;
+    _gl->printText(score + std::to_string(_score), params);
 }
 
-void Pacman::drawMap(arc::gl::IGraphicLib *gl)
+void Pacman::drawMap()
 {
-    for (int x = 1; x <= _posM.first + 1; x++) {
-        for (int y = 0; y < _posM.second; y++) {
+    for (int x = 1 ; x <= _posM.first + 1 ; ++x) {
+        for (int y = 0 ; y < _posM.second ; ++y) {
             if (_map[x][y] == 'X')
-                gl->drawSquare(y, x, arc::gl::BLUE);
+                _gl->drawSquare(y, x, arc::gl::BLUE);
             else if (_map[x][y] == '.' || _map[x][y] == '*') {
                 arc::gl::textParams_t text;
                 text.x = y;
                 text.y = x;
-                gl->printText((_map[x][y] == '.') ? "." : "*", text);
+                _gl->printText((_map[x][y] == '.') ? "." : "*", text);
             } else if (_map[x][y] == 'C') {
-                _Pos.first = y;
-                _Pos.second = x;
-            }
-            else if (_map[x][y] == 'G')
-                _PosG.push_back(std::make_pair(y, x));
+                _pos.first = y;
+                _pos.second = x;
+            } else if (_map[x][y] == 'G')
+                _posG.push_back(std::make_pair(y, x));
             else if (_map[x][y] == '-')
                 _door = std::make_pair(y, x);
         }

@@ -8,15 +8,15 @@
 #include <unistd.h>
 #include "Pacman.hpp"
 
-void Pacman::drawPerso()
+void arc::game::Pacman::drawPerso()
 {
     manageEvent();
-    _gl->drawSquare(_pos.first, _pos.second, arc::gl::YELLOW);
+    _gl->drawSquare(_pos.first, _pos.second, gl::YELLOW);
 }
 
-void Pacman::movPerso(std::pair <int, int> dir, arc::gl::event_t event)
+void arc::game::Pacman::movPerso(std::pair <int, int> dir, gl::event_t event)
 {
-    if (event == arc::gl::Right || event == arc::gl::Left) {
+    if (event == gl::Right || event == gl::Left) {
         if (checkPos(_pos.second, _pos.first + dir.second) != false) {
             _sDir = dir;
             _eventP = event;
@@ -43,7 +43,7 @@ void Pacman::movPerso(std::pair <int, int> dir, arc::gl::event_t event)
     }
 }
 
-bool Pacman::checkGhost()
+bool arc::game::Pacman::checkGhost()
 {
     for (int i = 0 ; i < 4 ; ++i) {
         if (_pos == _posG[i])
@@ -52,7 +52,7 @@ bool Pacman::checkGhost()
     return true;
 }
 
-void Pacman::checkMove(std::pair <int, int> dir, arc::gl::event_t event)
+void arc::game::Pacman::checkMove(std::pair <int, int> dir, gl::event_t event)
 {
     if (_pos.first > 0 && _pos.first < (_posM.first - 1))
         movPerso(dir, event);
@@ -68,21 +68,21 @@ void Pacman::checkMove(std::pair <int, int> dir, arc::gl::event_t event)
         _map[_pos.second][_pos.first] = 'C';
     }
     if (checkGhost() == false)
-        _event = arc::gl::Escape;
+        _event = gl::Escape;
 }
 
-void Pacman::manageEvent()
+void arc::game::Pacman::manageEvent()
 {
-    if (_event == arc::gl::Escape)
+    if (_event == gl::Escape)
         return;
-    else if (_event == arc::gl::Left)
-        checkMove({0, -1}, arc::gl::Left);
-    else if (_event == arc::gl::Right)
-        checkMove({0, 1}, arc::gl::Right);
-    else if (_event == arc::gl::Up)
-        checkMove({-1, 0}, arc::gl::Up);
-    else if (_event == arc::gl::Down)
-        checkMove({1, 0}, arc::gl::Down);
-    else if (_event == arc::gl::Unknown)
+    else if (_event == gl::Left)
+        checkMove({0, -1}, gl::Left);
+    else if (_event == gl::Right)
+        checkMove({0, 1}, gl::Right);
+    else if (_event == gl::Up)
+        checkMove({-1, 0}, gl::Up);
+    else if (_event == gl::Down)
+        checkMove({1, 0}, gl::Down);
+    else if (_event == gl::Unknown)
         checkMove(_sDir, _eventP);
 }

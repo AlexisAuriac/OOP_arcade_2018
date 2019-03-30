@@ -7,9 +7,9 @@
 
 #include "Pacman.hpp"
 
-void Pacman::drawScore()
+void arc::game::Pacman::drawScore()
 {
-    arc::gl::textParams_t params;
+    gl::textParams_t params;
     std::string score = "Score: ";
 
     params.x = 0;
@@ -17,14 +17,14 @@ void Pacman::drawScore()
     _gl->printText(score + std::to_string(_score), params);
 }
 
-void Pacman::drawMap()
+void arc::game::Pacman::drawMap()
 {
     for (int x = 1 ; x <= _posM.first + 1 ; ++x) {
         for (int y = 0 ; y < _posM.second ; ++y) {
             if (_map[x][y] == 'X')
-                _gl->drawSquare(y, x, arc::gl::BLUE);
+                _gl->drawSquare(y, x, gl::BLUE);
             else if (_map[x][y] == '.' || _map[x][y] == '*') {
-                arc::gl::textParams_t text;
+                gl::textParams_t text;
                 text.x = y;
                 text.y = x;
                 _gl->printText((_map[x][y] == '.') ? "." : "*", text);

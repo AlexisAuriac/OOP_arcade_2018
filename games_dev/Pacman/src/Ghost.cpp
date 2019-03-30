@@ -9,45 +9,45 @@
 #include <time.h>
 #include "Pacman.hpp"
 
-void Pacman::addPos(int i, std::pair<int, int> dir)
+void arc::game::Pacman::addPos(int i, std::pair<int, int> dir)
 {
     _posG[i].first += dir.first;
     _posG[i].second += dir.second;
 }
 
-void Pacman::manageGDir(arc::gl::event_t event, int i)
+void arc::game::Pacman::manageGDir(gl::event_t event, int i)
 {
-    if (event == arc::gl::Left)
+    if (event == gl::Left)
         addPos(i, {-1, 0});
-    if (event == arc::gl::Right)
+    if (event == gl::Right)
         addPos(i, {1, 0});
-    if (event == arc::gl::Up)
+    if (event == gl::Up)
         addPos(i, {0, -1});
-    if (event == arc::gl::Down)
+    if (event == gl::Down)
         addPos(i, {0, 1});
     _sMov[i] = event;
 }
 
-void Pacman::porGDir(int i, std::vector<arc::gl::event_t> nb_event)
+void arc::game::Pacman::porGDir(int i, std::vector<gl::event_t> nb_event)
 {
     int random = rand() % nb_event.size();
 
     manageGDir(nb_event[random], i);
 }
 
-void Pacman::chooseDir(int i, std::vector<arc::gl::event_t> nb_event)
+void arc::game::Pacman::chooseDir(int i, std::vector<gl::event_t> nb_event)
 {
-    arc::gl::event_t erase_e;
+    gl::event_t erase_e;
     int poss = rand() % 100;
 
-    if (_sMov[i] == arc::gl::Left || _sMov[i] == arc::gl::Right) {
-        erase_e = arc::gl::Right;
-        if (_sMov[i] == arc::gl::Right)
-            erase_e = arc::gl::Left;
+    if (_sMov[i] == gl::Left || _sMov[i] == gl::Right) {
+        erase_e = gl::Right;
+        if (_sMov[i] == gl::Right)
+            erase_e = gl::Left;
     } else {
-        erase_e = arc::gl::Up;
-        if (_sMov[i] == arc::gl::Up)
-            erase_e = arc::gl::Down;
+        erase_e = gl::Up;
+        if (_sMov[i] == gl::Up)
+            erase_e = gl::Down;
     }
     for (auto j = nb_event.begin() ; j != nb_event.end() ; ++j) {
         if (*j == erase_e) {
@@ -56,25 +56,25 @@ void Pacman::chooseDir(int i, std::vector<arc::gl::event_t> nb_event)
         }
     }
     if (poss <= 15 || nb_event.size() == 0) {
-        if (_sMov[i] == arc::gl::Left || _sMov[i] == arc::gl::Right) {
-            if (_sMov[i] == arc::gl::Right) {
-                manageGDir(i, arc::gl::Left);
+        if (_sMov[i] == gl::Left || _sMov[i] == gl::Right) {
+            if (_sMov[i] == gl::Right) {
+                manageGDir(i, gl::Left);
                 return;
             }
-            manageGDir(i, arc::gl::Right);
+            manageGDir(i, gl::Right);
         } else {
-            if (_sMov[i] == arc::gl::Up) {
-                manageGDir(i, arc::gl::Down);
+            if (_sMov[i] == gl::Up) {
+                manageGDir(i, gl::Down);
                 return;
             }
-            manageGDir(i, arc::gl::Up);
+            manageGDir(i, gl::Up);
         }
     }
     else
         porGDir(i, nb_event);
 }
 
-bool Pacman::checkPos(int x, int y)
+bool arc::game::Pacman::checkPos(int x, int y)
 {
     if (_map[x][y] == 'X')
         return false;
@@ -83,33 +83,33 @@ bool Pacman::checkPos(int x, int y)
     return true;
 }
 
-void Pacman::checkGDir(int i)
+void arc::game::Pacman::checkGDir(int i)
 {
-    std::vector<arc::gl::event_t> nb_event;
+    std::vector<gl::event_t> nb_event;
 
     if (checkPos(_posG[i].second - 1, _posG[i].first) == true)
-        nb_event.push_back(arc::gl::Up);
+        nb_event.push_back(gl::Up);
     if (checkPos(_posG[i].second + 1, _posG[i].first) == true)
-        nb_event.push_back(arc::gl::Down);
+        nb_event.push_back(gl::Down);
     if (checkPos(_posG[i].second, _posG[i].first + 1) == true)
-        nb_event.push_back(arc::gl::Right);
+        nb_event.push_back(gl::Right);
     if (checkPos(_posG[i].second, _posG[i].first - 1) == true)
-        nb_event.push_back(arc::gl::Left);
+        nb_event.push_back(gl::Left);
     chooseDir(i, nb_event);
 }
 
-void Pacman::moveGhost(int i)
+void arc::game::Pacman::moveGhost(int i)
 {
-    arc::gl::event_t dir;
+    gl::event_t dir;
 
     if (_posG[i].first > 0 && _posG[i].first <= (_posM.first - 1)) {
         if ((_posG[i].first >= _door.first - 2 && _posG[i].first <= _door.first + 2)
             && (_posG[i].second >= _door.second && _posG[i].second < _door.second + 4)) {
             _posG[i].first = _door.first;
             _posG[i].second = _door.second - 1;
-            dir = arc::gl::Right;
+            dir = gl::Right;
             if (rand()%100 >= 50)
-                dir = arc::gl::Left;
+                dir = gl::Left;
             _sMov.push_back(dir);
         }
         else
@@ -122,19 +122,24 @@ void Pacman::moveGhost(int i)
     }
 }
 
-void Pacman::drawGhost()
+void arc::game::Pacman::drawGhost()
 {
-    std::vector<arc::gl::color_t> color = {arc::gl::GREEN, arc::gl::MAGENTA, arc::gl::GRAY, arc::gl::RED};
+    std::vector<gl::color_t> colors = {
+        gl::GREEN,
+        gl::MAGENTA,
+        gl::GRAY,
+        gl::RED
+    };
 
     if (_time > 60) {
         for (int i = 0; i < 4; ++i) {
             moveGhost(i);
-            _gl->drawSquare(_posG[i].first, _posG[i].second, color[i]);
+            _gl->drawSquare(_posG[i].first, _posG[i].second, colors[i]);
         }
         if (checkGhost() == false)
-            _event = arc::gl::Escape;
+            _event = gl::Escape;
     } else {
         for (int i = 0; i < 4; ++i)
-            _gl->drawSquare(_posG[i].first, _posG[i].second, color[i]);
+            _gl->drawSquare(_posG[i].first, _posG[i].second, colors[i]);
     }
 }

@@ -11,7 +11,7 @@
 #include "IGraphicLib.hpp"
 #include "Pacman.hpp"
 
-Pacman::Pacman()
+arc::game::Pacman::Pacman()
 {
     std::string line;
     std::ifstream mapFile("Pac_map/map1.txt");
@@ -27,11 +27,11 @@ Pacman::Pacman()
     _score = 0;
     _sDir.first = 0;
     _sDir.second = 0;
-    _eventP = arc::gl::Down;
-    _event = arc::gl::Unknown;
+    _eventP = gl::Down;
+    _event = gl::Unknown;
 }
 
-void Pacman::init(arc::gl::IGraphicLib *gl)
+void arc::game::Pacman::init(gl::IGraphicLib *gl)
 {
     _gl = gl;
     if (_map[0] == "NOP")
@@ -40,15 +40,15 @@ void Pacman::init(arc::gl::IGraphicLib *gl)
     _posM.second = atoi((_map[0].erase(0, _map[0].find(',') + 1)).c_str());
 }
 
-void Pacman::waitTurn()
+void arc::game::Pacman::waitTurn()
 {
     usleep(165000);
     ++_time;
 }
 
-void Pacman::gameRun()
+void arc::game::Pacman::gameRun()
 {
-    while (_event != arc::gl::Escape) {
+    while (_event != gl::Escape) {
         _event = _gl->getEvent();
         _gl->clear();
         drawMap();

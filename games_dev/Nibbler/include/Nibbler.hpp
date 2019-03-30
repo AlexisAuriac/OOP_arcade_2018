@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** arcade
 ** File description:
-** Defines a Nibbler games.
+** Defines a Nibbler game.
 */
 
 #ifndef NIBBLER_HPP_

@@ -5,7 +5,8 @@
 ## Makefile for games.
 ##
 
-GAMES	=	Nibbler
+GAMES	=	Nibbler		\
+			Pacman
 
 all: games
 

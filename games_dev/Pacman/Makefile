@@ -2,14 +2,15 @@
 ## EPITECH PROJECT, 2018
 ## arcade
 ## File description:
-## Makefile for a Nibbler game.
+## Makefile for a Pacman game.
 ##
 
 CXX		?=	g++
 
-SRC		=	Nibbler.cpp			\
-			NibblerPlay.cpp		\
-			NibblerDisplay.cpp
+SRC		=	Pacman.cpp		\
+			Perso.cpp		\
+			drawMap.cpp		\
+			Ghost.cpp
 
 SRC		:=	$(addprefix src/, $(SRC))
 
@@ -19,7 +20,7 @@ CPPFLAGS	+=	-I include -I ../../core/include
 
 CXXFLAGS	+=	-Wall -Wextra -fPIC
 
-NAME		=	../../games/lib_arcade_nibbler.so
+NAME		=	../../games/lib_arcade_pacman.so
 
 all: $(NAME)
 

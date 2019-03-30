@@ -1,0 +1,4 @@
+# This is an output directory so everything is ignored
+*
+# except this
+!.gitignore

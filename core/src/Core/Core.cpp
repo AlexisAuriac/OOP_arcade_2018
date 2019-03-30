@@ -64,8 +64,6 @@ void arc::Core::playMenu(gl::event_t event)
     std::pair<arc::MainMenu::action, const std::string> res = _menu.handleEvent(event);
 
     if (res.first == arc::MainMenu::SELECT_GL) {
-        if (_glLoader.isOpen(res.second))
-            return;
         try {
             _glLoader.switchLib(res.second, _gl);
         } catch (const arc::err::DLError &e) {

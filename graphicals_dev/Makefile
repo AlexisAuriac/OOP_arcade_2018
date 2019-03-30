@@ -6,7 +6,8 @@
 ##
 
 LIBS	=	ncurses		\
-			SFML
+			SFML		\
+			SDL1
 
 all: libs
 

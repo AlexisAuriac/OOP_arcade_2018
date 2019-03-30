@@ -7,7 +7,7 @@
 
 CXX			?=	g++
 
-SRC			=	SDL2.cpp
+SRC			=	SDL1.cpp
 
 SRC			:=	$(addprefix src/, $(SRC))
 
@@ -17,7 +17,9 @@ CPPFLAGS	+=	-I include -I ../../core/include
 
 CXXFLAGS	+=	-Wall -Wextra -fPIC
 
-NAME		=	../../graphicals/lib_arcade_sdl2.so
+LDFLAGS		+=	-lSDL -lSDL_ttf
+
+NAME		=	../../graphicals/lib_arcade_sdl1.so
 
 all: $(NAME)
 

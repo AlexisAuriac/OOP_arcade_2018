@@ -34,8 +34,10 @@ void arc::game::Pacman::init(gl::IGraphicLib *gl)
     _state = PLAYING;
     _posM.first = atoi(_map[0].c_str());
     _posM.second = atoi((_map[0].erase(0, _map[0].find(',') + 1)).c_str());
+    _start = time(nullptr);
+    _lastTurn = clock();
+    _drawable = false;
     _score = 0;
-    _time = 0;
     _sDir.first = 0;
     _sDir.second = 0;
     _eventP = gl::Down;
@@ -46,29 +48,31 @@ void arc::game::Pacman::restart()
     init(_gl);
 }
 
-void arc::game::Pacman::waitTurn()
-{
-    usleep(165000);
-    ++_time;
-}
-
 std::pair<arc::game::state, int> arc::game::Pacman::play(gl::event_t event)
 {
-    _gl->clear();
-    updateMap();
-    moveGhosts();
-    manageEvent(event);
-    waitTurn();
+    if (event != gl::Unknown)
+        _event = event;
+    if ((clock() - _lastTurn) * 10 / CLOCKS_PER_SEC) {
+        updateMap();
+        moveGhosts();
+        manageEvent();
+        _lastTurn = clock();
+        _drawable = true;
+    }
     return std::make_pair(_state, 0);
 }
 
 void arc::game::Pacman::display()
 {
+    if (!_drawable)
+        return;
+    _gl->clear();
     drawMap();
     drawGhost();
     drawPerso();
     drawScore();
     _gl->display();
+    _drawable = false;
 }
 
 extern "C" arc::game::IGame *entryPoint()

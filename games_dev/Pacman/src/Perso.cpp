@@ -70,16 +70,16 @@ void arc::game::Pacman::checkMove(std::pair<int, int> dir, gl::event_t event)
         _state = OVER;
 }
 
-void arc::game::Pacman::manageEvent(gl::event_t event)
+void arc::game::Pacman::manageEvent()
 {
-    if (event == gl::Left)
+    if (_event == gl::Left)
         checkMove({0, -1}, gl::Left);
-    else if (event == gl::Right)
+    else if (_event == gl::Right)
         checkMove({0, 1}, gl::Right);
-    else if (event == gl::Up)
+    else if (_event == gl::Up)
         checkMove({-1, 0}, gl::Up);
-    else if (event == gl::Down)
+    else if (_event == gl::Down)
         checkMove({1, 0}, gl::Down);
-    else if (event == gl::Unknown)
+    else if (_event == gl::Unknown)
         checkMove(_sDir, _eventP);
 }

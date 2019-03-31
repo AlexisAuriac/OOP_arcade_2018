@@ -124,7 +124,7 @@ void arc::game::Pacman::moveGhost(int i)
 
 void arc::game::Pacman::moveGhosts()
 {
-    if (_time > 60) {
+    if (time(NULL) - _start > 10) {
         for (int i = 0; i < 4; ++i)
             moveGhost(i);
         if (!checkGhost())

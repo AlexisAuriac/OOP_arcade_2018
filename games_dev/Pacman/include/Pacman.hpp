@@ -31,7 +31,7 @@ namespace arc::game {
 
     private:// Perso
         void drawPerso();
-        void manageEvent(gl::event_t event);
+        void manageEvent();
         bool checkGhost();
         void checkMove(std::pair<int, int> dir, gl::event_t event);
         void movePerso(std::pair<int, int> dir, gl::event_t event);
@@ -48,17 +48,20 @@ namespace arc::game {
         void addPos(int i, std::pair<int, int> dir);
 
     private:// Ghost
-        int _time;
+        int _start;
         std::vector<gl::event_t> _sMov;
         std::vector<std::pair<int, int>> _posG;
         std::pair<int, int> _door;
 
     private:// Perso
+        gl::event_t _event;
         gl::event_t _eventP;
         std::pair<int, int> _pos;
         std::pair<int, int> _sDir;
 
     private:// Map
+        int _lastTurn;
+        bool _drawable;
         gl::IGraphicLib *_gl;
         std::pair<int, int> _posM;
         std::vector<std::string> _map;

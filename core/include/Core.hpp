@@ -62,6 +62,7 @@ namespace arc {
         game::IGame *_game = nullptr;
 
         unsigned int _currGl = -1;
+        unsigned int _currGame = -1;
         std::vector<std::string> _games;
         std::vector<std::string> _gls;
     };

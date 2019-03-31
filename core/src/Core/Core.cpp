@@ -68,6 +68,38 @@ bool arc::Core::handleEvent(gl::event_t event)
         if (_state == IN_GAME)
             _game->changeGl(_gl);
         return true;
+    case gl::Num5:
+        if (_games.size() == 0)
+            return true;
+        else if (_currGame == 0 || _currGame > _games.size() - 1)
+            _currGame = _games.size() - 1;
+        else
+            --_currGame;
+        if (_state == IN_GAME)
+            _gameLoader.switchLib(_games[_currGame], _game);
+        else {
+            _gameLoader.loadLib(_games[_currGame]);
+            _game = _gameLoader.getInstance();
+        }
+        _game->init(_gl);
+        _state = IN_GAME;
+        return true;
+    case gl::Num6:
+        if (_games.size() == 0)
+            return true;
+        else if (_currGame >= _games.size() - 1)
+            _currGame = 0;
+        else
+            ++_currGame;
+        if (_state == IN_GAME)
+            _gameLoader.switchLib(_games[_currGame], _game);
+        else {
+            _gameLoader.loadLib(_games[_currGame]);
+            _game = _gameLoader.getInstance();
+        }
+        _game->init(_gl);
+        _state = IN_GAME;
+        return true;
     default:
         return false;
     }
@@ -99,6 +131,7 @@ void arc::Core::playMenu(gl::event_t event)
         _gameLoader.loadLib(res.second);
         _game = _gameLoader.getInstance();
         _game->init(_gl);
+        _currGame = _menu.getPos().second;
     } else
         _menu.display();
 }

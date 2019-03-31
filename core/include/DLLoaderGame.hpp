@@ -31,22 +31,28 @@ namespace arc {
             closeLib();
         }
 
-        bool isOpen(const std::string &path) {
-            if (dlopen(path.c_str(), RTLD_LAZY | RTLD_NOLOAD))
-                return true;
-            return false;
-        }
-
         void loadLib(const std::string &path) {
             void *newLib;
 
-            if (isOpen(path))
-                throw arc::err::DLError(path + ": already open");
             newLib = dlopen(path.c_str(), RTLD_LAZY);
             if (newLib == nullptr)
                 throw arc::err::DLError(dlerror());
             if (_lib != nullptr)
                 closeLib();
+            _lib = newLib;
+        }
+
+        void switchLib(const std::string &path, game::IGame *&inst) {
+            void *newLib;
+            game::IGame *newInst;
+
+            newLib = dlopen(path.c_str(), RTLD_LAZY);
+            if (newLib == nullptr)
+                throw arc::err::DLError(dlerror());
+            newInst = getInstance(newLib);
+            delete inst;
+            inst = newInst;
+            closeLib();
             _lib = newLib;
         }
 
@@ -59,9 +65,13 @@ namespace arc {
         }
 
         game::IGame *getInstance() {
+            return getInstance(_lib);
+        }
+
+        game::IGame *getInstance(void *handle) {
             game::IGame *(*entry)(void);
 
-            entry = (game::IGame *(*)()) dlsym(_lib, game::ENTRY_POINT_NAME);
+            entry = (game::IGame *(*)()) dlsym(handle, game::ENTRY_POINT_NAME);
             if (entry == nullptr)
                 throw arc::err::DLError(dlerror());
             try {

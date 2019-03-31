@@ -11,6 +11,11 @@
 #include "IGraphicLib.hpp"
 #include "MainMenu.hpp"
 
+const std::pair<unsigned int, unsigned int> &arc::MainMenu::getPos() const
+{
+    return _pos;
+}
+
 void arc::MainMenu::init(
     gl::IGraphicLib *gl,
     std::vector<std::string> &gls,
@@ -67,7 +72,7 @@ void arc::MainMenu::displayList(
     unsigned int nbList,
     const std::string &listName,
     std::vector<std::string> entries,
-    int col)
+    int col) const
 {
     int lines = _gl->getLines();
     gl::textParams_t params;
@@ -91,7 +96,7 @@ void arc::MainMenu::displayList(
     }
 }
 
-void arc::MainMenu::display()
+void arc::MainMenu::display() const
 {
     _gl->clear();
     displayList(0, "LIBS", _gls, _gl->getCols() / 4);

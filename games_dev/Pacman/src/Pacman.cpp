@@ -75,6 +75,11 @@ void arc::game::Pacman::display()
     _drawable = false;
 }
 
+void arc::game::Pacman::changeGl(gl::IGraphicLib *gl)
+{
+    _gl = gl;
+}
+
 extern "C" arc::game::IGame *entryPoint()
 {
     return new arc::game::Pacman();

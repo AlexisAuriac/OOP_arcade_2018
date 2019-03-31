@@ -21,6 +21,7 @@ namespace arc::game {
             std::pair<state, int> play(gl::event_t event) override;
             void display() override;
             void restart() override;
+            void changeGl(gl::IGraphicLib *gl) override;
 
         private:
             void posFruit(int flag);

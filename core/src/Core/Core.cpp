@@ -42,17 +42,38 @@ bool arc::Core::handleEvent(gl::event_t event)
         if (_state == IN_GAME)
             _game->restart();
         return true;
-    // case gl::Num3:
-    //     _glLoader.switchLib(_gls[0], _gl);
-    //     _gl->openWindow();
-    //     _menu.changeLib(_gl);
-    //     return true;
+    case gl::Num3:
+        if (_gls.size() == 0)
+            return true;
+        else if (_currGl == 0)
+            _currGl = _gls.size() - 1;
+        else
+            --_currGl;
+        _glLoader.switchLib(_gls[_currGl], _gl);
+        _gl->openWindow();
+        _menu.changeLib(_gl);
+        if (_state == IN_GAME)
+            _game->changeGl(_gl);
+        return true;
+    case gl::Num4:
+        if (_gls.size() == 0)
+            return true;
+        else if (_currGl >= _gls.size() - 1)
+            _currGl = 0;
+        else
+            ++_currGl;
+        _glLoader.switchLib(_gls[_currGl], _gl);
+        _gl->openWindow();
+        _menu.changeLib(_gl);
+        if (_state == IN_GAME)
+            _game->changeGl(_gl);
+        return true;
     default:
         return false;
     }
 }
 
-void arc::Core::alert(const std::string &str)
+void arc::Core::alert(const std::string &str) const
 {
     _gl->printText(str, gl::textParams());
     _gl->display();
@@ -72,6 +93,7 @@ void arc::Core::playMenu(gl::event_t event)
         }
         _gl->openWindow();
         _menu.changeLib(_gl);
+        _currGl = _menu.getPos().second;
     } else if (res.first == arc::MainMenu::SELECT_GAME) {
         _state = IN_GAME;
         _gameLoader.loadLib(res.second);

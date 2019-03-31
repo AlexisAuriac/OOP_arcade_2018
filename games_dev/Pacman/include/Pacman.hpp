@@ -20,6 +20,7 @@ namespace arc::game {
         void restart() override;
         std::pair<state, int> play(gl::event_t event) override;
         void display() override;
+        void changeGl(gl::IGraphicLib *gl) override;
 
     private:
         bool loadMap();

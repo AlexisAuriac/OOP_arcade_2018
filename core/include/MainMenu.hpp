@@ -33,14 +33,16 @@ namespace arc {
         void changeLib(gl::IGraphicLib *gl);
         bool HandleMove(gl::event_t event);
         std::pair<action, const std::string> handleEvent(gl::event_t event);
-        void display();
+        void display() const;
+
+        const std::pair<unsigned int, unsigned int> &getPos() const;
 
     private:
         void displayList(
             unsigned int nbList,
             const std::string &listName,
             std::vector<std::string> entries,
-            int col);
+            int col) const;
 
     private:
         std::pair<unsigned int, unsigned int> _pos;

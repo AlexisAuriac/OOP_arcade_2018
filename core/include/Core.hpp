@@ -46,7 +46,7 @@ namespace arc {
         void init(const std::string &libName);
 
         bool handleEvent(gl::event_t event);
-        void alert(const std::string &str);
+        void alert(const std::string &str) const;
         void playMenu(gl::event_t event);
         void playGame(gl::event_t event);
         void mainLoop();
@@ -61,6 +61,7 @@ namespace arc {
         DLLoader<game::IGame> _gameLoader;
         game::IGame *_game = nullptr;
 
+        unsigned int _currGl = 0;
         std::vector<std::string> _games;
         std::vector<std::string> _gls;
     };

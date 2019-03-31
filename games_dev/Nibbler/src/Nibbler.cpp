@@ -44,6 +44,11 @@ void arc::game::Nibbler::restart()
     init(_gl);
 }
 
+void arc::game::Nibbler::changeGl(gl::IGraphicLib *gl)
+{
+    _gl = gl;
+}
+
 extern "C" arc::game::IGame *entryPoint()
 {
     return new arc::game::Nibbler();

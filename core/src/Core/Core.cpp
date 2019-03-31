@@ -45,7 +45,7 @@ bool arc::Core::handleEvent(gl::event_t event)
     case gl::Num3:
         if (_gls.size() == 0)
             return true;
-        else if (_currGl == 0)
+        else if (_currGl == 0 || _currGl > _gls.size() - 1)
             _currGl = _gls.size() - 1;
         else
             --_currGl;

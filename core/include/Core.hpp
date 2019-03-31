@@ -61,7 +61,7 @@ namespace arc {
         DLLoader<game::IGame> _gameLoader;
         game::IGame *_game = nullptr;
 
-        unsigned int _currGl = 0;
+        unsigned int _currGl = -1;
         std::vector<std::string> _games;
         std::vector<std::string> _gls;
     };

@@ -68,14 +68,12 @@ void arc::game::Pacman::checkMove(std::pair <int, int> dir, gl::event_t event)
         _map[_pos.second][_pos.first] = 'C';
     }
     if (checkGhost() == false)
-        _event = gl::Escape;
+        _state = OVER;
 }
 
 void arc::game::Pacman::manageEvent()
 {
-    if (_event == gl::Escape)
-        return;
-    else if (_event == gl::Left)
+    if (_event == gl::Left)
         checkMove({0, -1}, gl::Left);
     else if (_event == gl::Right)
         checkMove({0, 1}, gl::Right);

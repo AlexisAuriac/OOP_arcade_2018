@@ -137,7 +137,7 @@ void arc::game::Pacman::drawGhost()
             _gl->drawSquare(_posG[i].first, _posG[i].second, colors[i]);
         }
         if (checkGhost() == false)
-            _event = gl::Escape;
+            _state = OVER;
     } else {
         for (int i = 0; i < 4; ++i)
             _gl->drawSquare(_posG[i].first, _posG[i].second, colors[i]);

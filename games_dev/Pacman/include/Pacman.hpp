@@ -61,6 +61,7 @@ namespace arc::game {
         arc::gl::event_t _event;
         std::pair<int, int> _posM;
         std::vector<std::string> _map;
+        state _state;
         int _score;
     };
 }

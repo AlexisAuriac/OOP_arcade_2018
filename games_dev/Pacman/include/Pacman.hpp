@@ -25,11 +25,11 @@ namespace arc::game {
         bool loadMap();
         void waitTurn();
         void gameRun();
+        void updateMap();
         void drawMap();
         void drawScore();
 
     private:// Perso
-        // void movePerso(gl::event_t event);
         void drawPerso();
         void manageEvent(gl::event_t event);
         bool checkGhost();
@@ -39,6 +39,7 @@ namespace arc::game {
     private:// Ghost
         void drawGhost();
         void moveGhost(int i);
+        void moveGhosts();
         void checkGDir(int i);
         bool checkPos(int x, int y);
         void chooseDir(int i, std::vector<gl::event_t> nbEvent);
@@ -59,7 +60,6 @@ namespace arc::game {
 
     private:// Map
         gl::IGraphicLib *_gl;
-        gl::event_t _event;
         std::pair<int, int> _posM;
         std::vector<std::string> _map;
         state _state;

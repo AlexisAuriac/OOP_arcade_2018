@@ -17,24 +17,34 @@ void arc::game::Pacman::drawScore()
     _gl->printText(score + std::to_string(_score), params);
 }
 
-void arc::game::Pacman::drawMap()
+void arc::game::Pacman::updateMap()
 {
     for (int x = 1 ; x <= _posM.first + 1 ; ++x) {
         for (int y = 0 ; y < _posM.second ; ++y) {
-            if (_map[x][y] == 'X')
-                _gl->drawSquare(y, x, gl::BLUE);
-            else if (_map[x][y] == '.' || _map[x][y] == '*') {
-                gl::textParams_t text;
-                text.x = y;
-                text.y = x;
-                _gl->printText((_map[x][y] == '.') ? "." : "*", text);
-            } else if (_map[x][y] == 'C') {
+            if (_map[x][y] == 'C') {
                 _pos.first = y;
                 _pos.second = x;
             } else if (_map[x][y] == 'G')
                 _posG.push_back(std::make_pair(y, x));
             else if (_map[x][y] == '-')
                 _door = std::make_pair(y, x);
+        }
+    }
+}
+
+void arc::game::Pacman::drawMap()
+{
+    gl::textParams_t text;
+
+    for (int x = 1 ; x <= _posM.first + 1 ; ++x) {
+        for (int y = 0 ; y < _posM.second ; ++y) {
+            if (_map[x][y] == 'X')
+                _gl->drawSquare(y, x, gl::BLUE);
+            else if (_map[x][y] == '.' || _map[x][y] == '*') {
+                text.x = y;
+                text.y = x;
+                _gl->printText(std::string(1, _map[x][y]), text);
+            }
         }
     }
 }

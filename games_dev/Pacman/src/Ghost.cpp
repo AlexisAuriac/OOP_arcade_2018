@@ -108,7 +108,7 @@ void arc::game::Pacman::moveGhost(int i)
             _posG[i].first = _door.first;
             _posG[i].second = _door.second - 1;
             dir = gl::Right;
-            if (rand()%100 >= 50)
+            if (rand() % 100 >= 50)
                 dir = gl::Left;
             _sMov.push_back(dir);
         }
@@ -122,6 +122,16 @@ void arc::game::Pacman::moveGhost(int i)
     }
 }
 
+void arc::game::Pacman::moveGhosts()
+{
+    if (_time > 60) {
+        for (int i = 0; i < 4; ++i)
+            moveGhost(i);
+        if (!checkGhost())
+            _state = OVER;
+    }
+}
+
 void arc::game::Pacman::drawGhost()
 {
     std::vector<gl::color_t> colors = {
@@ -131,15 +141,6 @@ void arc::game::Pacman::drawGhost()
         gl::RED
     };
 
-    if (_time > 60) {
-        for (int i = 0; i < 4; ++i) {
-            moveGhost(i);
-            _gl->drawSquare(_posG[i].first, _posG[i].second, colors[i]);
-        }
-        if (checkGhost() == false)
-            _state = OVER;
-    } else {
-        for (int i = 0; i < 4; ++i)
-            _gl->drawSquare(_posG[i].first, _posG[i].second, colors[i]);
-    }
+    for (int i = 0; i < 4; ++i)
+        _gl->drawSquare(_posG[i].first, _posG[i].second, colors[i]);
 }

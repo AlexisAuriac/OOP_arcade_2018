@@ -14,23 +14,28 @@
 #include "IGame.hpp"
 
 namespace arc::game {
-    class Pacman {
+    class Pacman : public IGame {
     public:// Map
-        Pacman();
-        void init(arc::gl::IGraphicLib *gl);
+        void init(arc::gl::IGraphicLib *gl) override;
+        void restart() override;
+        std::pair<state, int> play(gl::event_t event) override;
+        void display() override;
+
+    private:
+        bool loadMap();
         void waitTurn();
         void gameRun();
         void drawMap();
         void drawScore();
 
-    public:// Perso
+    private:// Perso
         void drawPerso();
         void manageEvent();
         bool checkGhost();
         void checkMove(std::pair<int, int> dir, arc::gl::event_t event);
         void movPerso(std::pair<int, int> dir, arc::gl::event_t event);
 
-    public:// Ghost
+    private:// Ghost
         void drawGhost();
         void moveGhost(int i);
         void checkGDir(int i);

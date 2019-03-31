@@ -14,7 +14,7 @@ void arc::game::Pacman::drawPerso()
     _gl->drawSquare(_pos.first, _pos.second, gl::YELLOW);
 }
 
-void arc::game::Pacman::movPerso(std::pair <int, int> dir, gl::event_t event)
+void arc::game::Pacman::movPerso(std::pair<int, int> dir, gl::event_t event)
 {
     if (event == gl::Right || event == gl::Left) {
         if (checkPos(_pos.second, _pos.first + dir.second) != false) {

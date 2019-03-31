@@ -56,7 +56,6 @@ std::pair<arc::game::state, int> arc::game::Pacman::play(gl::event_t event)
 {
     _gl->clear();
     updateMap();
-    drawGhost();
     moveGhosts();
     manageEvent(event);
     waitTurn();

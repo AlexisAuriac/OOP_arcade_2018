@@ -58,21 +58,20 @@ std::pair<arc::game::state, int> arc::game::Pacman::play(gl::event_t event)
     _gl->clear();
     drawMap();
     drawGhost();
-    drawPerso();
+    manageEvent(event);
     drawScore();
-    _gl->display();
     waitTurn();
     return std::make_pair(_state, 0);
 }
 
 void arc::game::Pacman::display()
 {
-    // _gl->clear();
+    drawPerso();
     // drawMap();
     // drawGhost();
     // drawPerso();
     // drawScore();
-    // _gl->display();
+    _gl->display();
     // waitTurn();
 }
 

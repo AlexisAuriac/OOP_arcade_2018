@@ -16,7 +16,7 @@
 namespace arc::game {
     class Pacman : public IGame {
     public:// Map
-        void init(arc::gl::IGraphicLib *gl) override;
+        void init(gl::IGraphicLib *gl) override;
         void restart() override;
         std::pair<state, int> play(gl::event_t event) override;
         void display() override;
@@ -29,36 +29,37 @@ namespace arc::game {
         void drawScore();
 
     private:// Perso
+        // void movePerso(gl::event_t event);
         void drawPerso();
-        void manageEvent();
+        void manageEvent(gl::event_t event);
         bool checkGhost();
-        void checkMove(std::pair<int, int> dir, arc::gl::event_t event);
-        void movPerso(std::pair<int, int> dir, arc::gl::event_t event);
+        void checkMove(std::pair<int, int> dir, gl::event_t event);
+        void movePerso(std::pair<int, int> dir, gl::event_t event);
 
     private:// Ghost
         void drawGhost();
         void moveGhost(int i);
         void checkGDir(int i);
         bool checkPos(int x, int y);
-        void chooseDir(int i, std::vector<arc::gl::event_t> nb_event);
-        void porGDir(int i, std::vector<arc::gl::event_t> nb_event);
-        void manageGDir(arc::gl::event_t event, int i);
+        void chooseDir(int i, std::vector<gl::event_t> nb_event);
+        void porGDir(int i, std::vector<gl::event_t> nb_event);
+        void manageGDir(gl::event_t event, int i);
         void addPos(int i, std::pair<int, int> dir);
 
     private:// Ghost
         int _time;
-        std::vector<arc::gl::event_t> _sMov;
+        std::vector<gl::event_t> _sMov;
         std::vector<std::pair<int, int>> _posG;
         std::pair<int, int> _door;
 
     private:// Perso
-        arc::gl::event_t _eventP;
+        gl::event_t _eventP;
         std::pair<int, int> _pos;
         std::pair<int, int> _sDir;
 
     private:// Map
-        arc::gl::IGraphicLib *_gl;
-        arc::gl::event_t _event;
+        gl::IGraphicLib *_gl;
+        gl::event_t _event;
         std::pair<int, int> _posM;
         std::vector<std::string> _map;
         state _state;

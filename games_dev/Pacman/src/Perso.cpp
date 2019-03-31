@@ -10,11 +10,10 @@
 
 void arc::game::Pacman::drawPerso()
 {
-    manageEvent();
     _gl->drawSquare(_pos.first, _pos.second, gl::YELLOW);
 }
 
-void arc::game::Pacman::movPerso(std::pair<int, int> dir, gl::event_t event)
+void arc::game::Pacman::movePerso(std::pair<int, int> dir, gl::event_t event)
 {
     if (event == gl::Right || event == gl::Left) {
         if (checkPos(_pos.second, _pos.first + dir.second) != false) {
@@ -55,7 +54,7 @@ bool arc::game::Pacman::checkGhost()
 void arc::game::Pacman::checkMove(std::pair <int, int> dir, gl::event_t event)
 {
     if (_pos.first > 0 && _pos.first < (_posM.first - 1))
-        movPerso(dir, event);
+        movePerso(dir, event);
     else {
         _map[_pos.second][_pos.first] = ' ';
         if (_pos.first <= 0) {
@@ -71,16 +70,16 @@ void arc::game::Pacman::checkMove(std::pair <int, int> dir, gl::event_t event)
         _state = OVER;
 }
 
-void arc::game::Pacman::manageEvent()
+void arc::game::Pacman::manageEvent(gl::event_t event)
 {
-    if (_event == gl::Left)
+    if (event == gl::Left)
         checkMove({0, -1}, gl::Left);
-    else if (_event == gl::Right)
+    else if (event == gl::Right)
         checkMove({0, 1}, gl::Right);
-    else if (_event == gl::Up)
+    else if (event == gl::Up)
         checkMove({-1, 0}, gl::Up);
-    else if (_event == gl::Down)
+    else if (event == gl::Down)
         checkMove({1, 0}, gl::Down);
-    else if (_event == gl::Unknown)
+    else if (event == gl::Unknown)
         checkMove(_sDir, _eventP);
 }

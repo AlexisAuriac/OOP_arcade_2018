@@ -51,7 +51,7 @@ bool arc::game::Pacman::checkGhost()
     return true;
 }
 
-void arc::game::Pacman::checkMove(std::pair <int, int> dir, gl::event_t event)
+void arc::game::Pacman::checkMove(std::pair<int, int> dir, gl::event_t event)
 {
     if (_pos.first > 0 && _pos.first < (_posM.first - 1))
         movePerso(dir, event);

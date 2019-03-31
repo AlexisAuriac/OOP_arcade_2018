@@ -41,8 +41,8 @@ namespace arc::game {
         void moveGhost(int i);
         void checkGDir(int i);
         bool checkPos(int x, int y);
-        void chooseDir(int i, std::vector<gl::event_t> nb_event);
-        void porGDir(int i, std::vector<gl::event_t> nb_event);
+        void chooseDir(int i, std::vector<gl::event_t> nbEvent);
+        void porGDir(int i, std::vector<gl::event_t> nbEvent);
         void manageGDir(gl::event_t event, int i);
         void addPos(int i, std::pair<int, int> dir);
 

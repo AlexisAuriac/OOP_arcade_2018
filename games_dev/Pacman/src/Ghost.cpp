@@ -28,14 +28,14 @@ void arc::game::Pacman::manageGDir(gl::event_t event, int i)
     _sMov[i] = event;
 }
 
-void arc::game::Pacman::porGDir(int i, std::vector<gl::event_t> nb_event)
+void arc::game::Pacman::porGDir(int i, std::vector<gl::event_t> nbEvent)
 {
-    int random = rand() % nb_event.size();
+    int random = rand() % nbEvent.size();
 
-    manageGDir(nb_event[random], i);
+    manageGDir(nbEvent[random], i);
 }
 
-void arc::game::Pacman::chooseDir(int i, std::vector<gl::event_t> nb_event)
+void arc::game::Pacman::chooseDir(int i, std::vector<gl::event_t> nbEvent)
 {
     gl::event_t erase_e;
     int poss = rand() % 100;
@@ -49,13 +49,13 @@ void arc::game::Pacman::chooseDir(int i, std::vector<gl::event_t> nb_event)
         if (_sMov[i] == gl::Up)
             erase_e = gl::Down;
     }
-    for (auto j = nb_event.begin() ; j != nb_event.end() ; ++j) {
+    for (auto j = nbEvent.begin() ; j != nbEvent.end() ; ++j) {
         if (*j == erase_e) {
-            nb_event.erase(j);
+            nbEvent.erase(j);
             break;
         }
     }
-    if (poss <= 15 || nb_event.size() == 0) {
+    if (poss <= 15 || nbEvent.size() == 0) {
         if (_sMov[i] == gl::Left || _sMov[i] == gl::Right) {
             if (_sMov[i] == gl::Right) {
                 manageGDir(i, gl::Left);
@@ -71,7 +71,7 @@ void arc::game::Pacman::chooseDir(int i, std::vector<gl::event_t> nb_event)
         }
     }
     else
-        porGDir(i, nb_event);
+        porGDir(i, nbEvent);
 }
 
 bool arc::game::Pacman::checkPos(int x, int y)
@@ -85,17 +85,17 @@ bool arc::game::Pacman::checkPos(int x, int y)
 
 void arc::game::Pacman::checkGDir(int i)
 {
-    std::vector<gl::event_t> nb_event;
+    std::vector<gl::event_t> nbEvent;
 
     if (checkPos(_posG[i].second - 1, _posG[i].first) == true)
-        nb_event.push_back(gl::Up);
+        nbEvent.push_back(gl::Up);
     if (checkPos(_posG[i].second + 1, _posG[i].first) == true)
-        nb_event.push_back(gl::Down);
+        nbEvent.push_back(gl::Down);
     if (checkPos(_posG[i].second, _posG[i].first + 1) == true)
-        nb_event.push_back(gl::Right);
+        nbEvent.push_back(gl::Right);
     if (checkPos(_posG[i].second, _posG[i].first - 1) == true)
-        nb_event.push_back(gl::Left);
-    chooseDir(i, nb_event);
+        nbEvent.push_back(gl::Left);
+    chooseDir(i, nbEvent);
 }
 
 void arc::game::Pacman::moveGhost(int i)
